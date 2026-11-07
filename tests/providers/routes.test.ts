@@ -132,3 +132,30 @@ describe('search when every live source fails', () => {
     expect(body.error).toMatch(/symbols=AAPL,SPY/);
   });
 });
+
+describe('symbol normalization in routes', () => {
+  it('/api/quote?symbols=SPY,AAPL,BRK.B returns BRK.B (and BRK-B)', async () => {
+    const seen: string[][] = [];
+    const cache = new MemoryCache();
+    chain = new ProviderChain({
+      cache,
+      budget: new AlphaVantageBudget(cache),
+      seed: fakeSeed(),
+      yahoo: {
+        name: 'yahoo',
+        getQuotes: async (s) => (seen.push(s), s.filter((x) => !x.includes('.')).map((x) => quote(x, 'yahoo'))),
+        getFundProfile: async (s) => profile(s, 'yahoo'),
+        search: async () => [],
+      },
+      env: () => ({}) as NodeJS.ProcessEnv,
+    });
+    const res = await quoteRoute.GET(req('/api/quote?symbols=SPY,AAPL,BRK.B'));
+    const body = quoteResponseSchema.parse(await res.json());
+    expect(seen[0]).toEqual(['SPY', 'AAPL', 'BRK-B']);
+    expect(body.quotes['BRK.B']?.symbol).toBe('BRK-B');
+    expect(body.quotes['BRK-B']?.symbol).toBe('BRK-B');
+    expect(body.errors).toEqual({});
+    const fp = fundProfileResponseSchema.parse(await (await profileRoute.GET(req('/api/fund-profile?symbols=BRK.B'))).json());
+    expect(fp.profiles['BRK.B']?.symbol).toBe('BRK-B');
+  });
+});

@@ -1,6 +1,38 @@
 import { Redis } from '@upstash/redis';
 import { type Cache, type CacheEntry, type CacheSetOptions, makeEntry } from './types';
 
+export interface UpstashEnv {
+  url: string;
+  token: string;
+  /** Variable prefix the credentials were read from, e.g. 'UPSTASH_REDIS', 'KV', 'STORAGE'. */
+  prefix: string;
+}
+
+/**
+ * Find Upstash REST credentials. Order: UPSTASH_REDIS_REST_URL/TOKEN, KV_REST_API_URL/TOKEN, then
+ * any <PREFIX>_REST_API_URL with a matching <PREFIX>_REST_API_TOKEN (Vercel Marketplace custom
+ * prefixes, default 'STORAGE'). The read-only token is never used (cache writes and budget counters
+ * need write access). Values are never logged or returned outside this object.
+ */
+export function resolveUpstashEnv(env: NodeJS.ProcessEnv = process.env): UpstashEnv | null {
+  const pick = (prefix: string, urlVar: string, tokenVar: string): UpstashEnv | null => {
+    const url = env[urlVar]?.trim();
+    const token = env[tokenVar]?.trim();
+    return url && token ? { url, token, prefix } : null;
+  };
+  const direct = pick('UPSTASH_REDIS', 'UPSTASH_REDIS_REST_URL', 'UPSTASH_REDIS_REST_TOKEN') ?? pick('KV', 'KV_REST_API_URL', 'KV_REST_API_TOKEN');
+  if (direct) return direct;
+  const prefixes = Object.keys(env)
+    .map((k) => /^(\w+)_REST_API_URL$/.exec(k)?.[1])
+    .filter((p): p is string => Boolean(p) && p !== 'KV')
+    .sort();
+  for (const prefix of prefixes) {
+    const found = pick(prefix, `${prefix}_REST_API_URL`, `${prefix}_REST_API_TOKEN`);
+    if (found) return found;
+  }
+  return null;
+}
+
 const entryShape = (v: unknown): v is CacheEntry<unknown> =>
   typeof v === 'object' &&
   v !== null &&
@@ -14,13 +46,12 @@ const entryShape = (v: unknown): v is CacheEntry<unknown> =>
  */
 export class UpstashCache implements Cache {
   readonly backend = 'upstash' as const;
-  constructor(private redis: Redis, private prefix = 'overlap:') {}
+  constructor(private redis: Redis, private prefix = 'overlap:', readonly envPrefix?: string) {}
 
   static fromEnv(env: NodeJS.ProcessEnv = process.env): UpstashCache | null {
-    const url = env.UPSTASH_REDIS_REST_URL || env.KV_REST_API_URL;
-    const token = env.UPSTASH_REDIS_REST_TOKEN || env.KV_REST_API_TOKEN;
-    if (!url || !token) return null;
-    return new UpstashCache(new Redis({ url, token }));
+    const found = resolveUpstashEnv(env);
+    if (!found) return null;
+    return new UpstashCache(new Redis({ url: found.url, token: found.token }), 'overlap:', found.prefix);
   }
 
   private k(key: string) {

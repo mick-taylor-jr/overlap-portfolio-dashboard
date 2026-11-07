@@ -26,6 +26,7 @@ export const fundProfileSchema = provenanceSchema.extend({
   assetAllocation: z.record(z.string(), z.number()).optional(),
   holdingsCoverage: z.number().min(0).max(1.0001),
   totalHoldingsCount: z.number().int().nullable().optional(),
+  holdingsSource: z.object({ source: z.string(), asOf: z.string() }).optional(),
 });
 
 export const quoteSchema = provenanceSchema.extend({
@@ -100,6 +101,8 @@ export const healthResponseSchema = z.object({
   ),
   alphaVantageBudget: z.object({ used: z.number(), limit: z.number(), remaining: z.number(), resetsAt: z.string() }),
   cache: z.enum(['upstash', 'memory']),
+  /** Env var prefix the Upstash credentials were read from (name only, e.g. 'STORAGE'). */
+  cacheEnvPrefix: z.string().optional(),
   seedCapturedAt: z.string(),
 });
 

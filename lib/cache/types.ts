@@ -28,6 +28,8 @@ export type CacheBackend = 'upstash' | 'memory';
 
 export interface Cache {
   readonly backend: CacheBackend;
+  /** Env var prefix the backend's credentials came from (name only, never a value). */
+  readonly envPrefix?: string;
   get<T>(key: string): Promise<CacheEntry<T> | null>;
   set<T>(key: string, value: T, opts: CacheSetOptions, now?: number): Promise<void>;
   /** Overwrite an existing entry verbatim (used to flag refresh failures). */

@@ -89,6 +89,8 @@ export interface FundProfile extends Provenance {
   holdingsCoverage: number;
   /** Total number of holdings the fund reports, when known (e.g. 503 for SPY). */
   totalHoldingsCount?: number | null;
+  /** Set when holdings come from a different source than the rest (e.g. source 'yahoo+seed'). */
+  holdingsSource?: { source: string; asOf: string };
 }
 
 export interface Quote extends Provenance {

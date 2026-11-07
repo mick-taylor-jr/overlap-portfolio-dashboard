@@ -4,7 +4,7 @@ import type { Cache } from './types';
 
 export * from './types';
 export { MemoryCache } from './memory';
-export { UpstashCache } from './upstash';
+export { UpstashCache, resolveUpstashEnv, type UpstashEnv } from './upstash';
 export { SingleFlight, singleflight } from './singleflight';
 export { AlphaVantageBudget, type BudgetStatus, type BudgetDecision } from './budget';
 export { CircuitBreaker, type CircuitState } from './breaker';
@@ -13,7 +13,7 @@ export * from './ttl';
 
 let instance: Cache | null = null;
 
-/** Upstash when UPSTASH_REDIS_REST_URL/TOKEN (or Vercel KV_REST_API_*) are set, else in-memory LRU. */
+/** Upstash when credentials are found (see resolveUpstashEnv: UPSTASH_REDIS_*, KV_*, <PREFIX>_REST_API_*), else in-memory LRU. */
 export function getCache(): Cache {
   if (!instance) instance = UpstashCache.fromEnv() ?? new MemoryCache();
   return instance;

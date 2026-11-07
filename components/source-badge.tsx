@@ -35,7 +35,13 @@ export function SourceBadge({ p, className = '', holdings }: { p: Provenance | n
     );
   }
   const isSeed = p.source === 'seed';
-  const label = LABEL[p.source] ?? p.source;
+  // Merged fund profile, e.g. 'yahoo+seed': live fees/sectors with holdings from the bundled sample.
+  const holdingsSource = 'holdingsSource' in p ? (p as { holdingsSource?: { source: string; asOf: string } }).holdingsSource : undefined;
+  const isMerged = !isSeed && p.source.endsWith('+seed');
+  const liveSource = isMerged ? p.source.slice(0, -'+seed'.length) : p.source;
+  const label = LABEL[liveSource] ?? liveSource;
+  const holdingsDate = (holdingsSource?.asOf ?? '').slice(0, 10);
+  const holdingsNote = isMerged ? ` · holdings: sample data${holdingsDate ? ` ${holdingsDate}` : ''}` : '';
   const isUserish = p.source === 'user' || p.source === 'starter-pack';
   const text = isSeed
     ? `Sample data, captured ${p.asOf.slice(0, 10)}`
@@ -43,7 +49,7 @@ export function SourceBadge({ p, className = '', holdings }: { p: Provenance | n
       ? 'Your override'
       : p.source === 'starter-pack'
         ? 'Starter pack (synthetic)'
-        : `${label} · ${fmtAsOf(p.asOf)}${p.stale ? ' · cached' : ''}`;
+        : `${label} · ${fmtAsOf(p.asOf)}${p.stale ? ' · cached' : ''}${holdingsNote}`;
   const tone = isSeed || isUserish
     ? 'border-border bg-muted text-muted-foreground'
     : p.stale
@@ -54,7 +60,9 @@ export function SourceBadge({ p, className = '', holdings }: { p: Provenance | n
       title={
         isSeed
           ? seedTitle(p.asOf.slice(0, 10), holdings ?? 'holdings' in p)
-          : `Source: ${label}. As of ${p.asOf}.${p.stale ? ' Served from cache or sample data.' : ''}`
+          : `Source: ${label}. As of ${p.asOf}.${p.stale ? ' Served from cache or sample data.' : ''}${
+              isMerged ? ` Holdings from the bundled sample data${holdingsDate ? ` captured ${holdingsDate}` : ''} (more complete than the live top holdings). ${seedTitle(holdingsDate || 'n/a', true)}` : ''
+            }`
       }
       className={`inline-flex items-center whitespace-nowrap rounded border px-1.5 py-0.5 text-[10px] font-medium ${tone} ${className}`}
     >

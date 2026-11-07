@@ -3,6 +3,9 @@
  *
  *   quotes:       yahoo -> alphavantage -> last cached (stale:true) -> seed
  *   fund profile: alphavantage (key set + budget allows) -> yahoo -> last cached (stale:true) -> seed
+ *                 (live/cached profiles take seed HOLDINGS when seed coverage is > live + 0.05: source 'yahoo+seed')
+ *   Symbols are normalized (BRK.B -> BRK-B) before any provider/cache/seed lookup; results are keyed
+ *   by the symbol the client sent and also by the normalized form when different.
  *   crypto:       coingecko -> last cached (stale:true) -> seed
  *   search:       yahoo -> alphavantage (securities)  +  coingecko (crypto; static table w/o key)
  *
@@ -80,6 +83,49 @@ async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promis
   });
   await Promise.all(workers);
   return out;
+}
+
+/** Minimum coverage advantage for seed holdings to replace live holdings. */
+export const SEED_HOLDINGS_MARGIN = 0.05;
+
+/**
+ * Merge rule: seed holdings win only when seed coverage > live coverage + SEED_HOLDINGS_MARGIN.
+ * Holdings/coverage/count come from seed; name, fees, sectors, allocation and provenance from live.
+ */
+export function mergeProfileHoldings(live: FundProfile, seed: FundProfile): FundProfile {
+  if (!(seed.holdingsCoverage > live.holdingsCoverage + SEED_HOLDINGS_MARGIN)) return live;
+  return {
+    ...live,
+    holdings: seed.holdings,
+    holdingsCoverage: seed.holdingsCoverage,
+    totalHoldingsCount: seed.totalHoldingsCount ?? live.totalHoldingsCount ?? null,
+    source: `${live.source}+seed`,
+    asOf: live.asOf,
+    holdingsSource: { source: seed.source, asOf: seed.asOf },
+  };
+}
+
+/**
+ * Normalize requested symbols (BRK.B -> BRK-B) for providers/cache/seed, and key the result by
+ * what the client sent (trimmed, uppercased) plus the normalized form when it differs.
+ */
+export function keyedByRequest(symbols: string[]): { norms: string[]; expand: <T>(r: BatchResult<T>) => BatchResult<T> } {
+  const sent = [...new Set(symbols.map((s) => s.trim().toUpperCase()).filter(Boolean))];
+  const normOf = new Map(sent.map((s) => [s, normalizeTicker(s)]));
+  const norms = [...new Set(normOf.values())];
+  const expand = <T>(r: BatchResult<T>): BatchResult<T> => {
+    const values: Record<string, T | null> = {};
+    const errors: Record<string, string> = {};
+    for (const s of sent) {
+      const n = normOf.get(s) ?? s;
+      for (const k of n === s ? [s] : [s, n]) {
+        values[k] = r.values[n] ?? null;
+        if (r.errors[n] !== undefined) errors[k] = r.errors[n];
+      }
+    }
+    return { values, errors };
+  };
+  return { norms, expand };
 }
 
 export class ProviderChain {
@@ -173,7 +219,13 @@ export class ProviderChain {
   }
 
   async getQuotes(symbols: string[], opts: CallOptions = {}): Promise<BatchResult<Quote>> {
-    const reqs = [...new Set(symbols.map((s) => s.trim().toUpperCase()))];
+    const { norms, expand } = keyedByRequest(symbols);
+    const r = await this.getQuotesNormalized(norms, opts);
+    return expand(r);
+  }
+
+  /** `reqs` are already in normalizeTicker form (what providers, cache keys and seed use). */
+  private async getQuotesNormalized(reqs: string[], opts: CallOptions): Promise<BatchResult<Quote>> {
     const values: Record<string, Quote | null> = {};
     const errors: Record<string, string> = {};
     const key = (s: string) => `quote:${normalizeTicker(s)}`;
@@ -262,8 +314,24 @@ export class ProviderChain {
     return this.deps.cache.set(this.profileKey(s), { ...p, stale: false }, { ttlSeconds: TTL.fundProfile, swrSeconds: KEEP.fundProfile - TTL.fundProfile, keepSeconds: KEEP.fundProfile }, this.now());
   }
 
+  /**
+   * Live profiles may carry far fewer holdings than the bundled seed (Yahoo: top 10 only). When the
+   * seed's holdingsCoverage is materially higher, serve live fees/sectors/name with seed holdings.
+   * Applied at serve time, so the cache keeps the raw provider profile.
+   */
+  private withSeedHoldings(symbol: string, live: FundProfile): FundProfile {
+    if (live.holdingsSource || live.source === 'seed') return live;
+    const seed = this.deps.seed.profile(symbol);
+    return seed ? mergeProfileHoldings(live, seed) : live;
+  }
+
   async getFundProfiles(symbols: string[], opts: CallOptions = {}): Promise<BatchResult<FundProfile>> {
-    const reqs = [...new Set(symbols.map((s) => s.trim().toUpperCase()))];
+    const { norms, expand } = keyedByRequest(symbols);
+    const r = await this.getFundProfilesNormalized(norms, opts);
+    return expand(r);
+  }
+
+  private async getFundProfilesNormalized(reqs: string[], opts: CallOptions): Promise<BatchResult<FundProfile>> {
     const values: Record<string, FundProfile | null> = {};
     const errors: Record<string, string> = {};
     const revalidate: Array<{ s: string; e: CacheEntry<FundProfile> }> = [];
@@ -273,17 +341,17 @@ export class ProviderChain {
       const e = await this.deps.cache.get<FundProfile>(k);
       const f = e ? freshness(e, this.now()) : 'expired';
       if (e && f !== 'expired') {
-        values[s] = this.served(e);
+        values[s] = this.withSeedHoldings(s, this.served(e));
         if (f === 'revalidate') revalidate.push({ s, e });
         return;
       }
       try {
         const p = await this.flight.do(k, () => this.liveProfile(s, e?.value.name));
         await this.storeProfile(s, p);
-        values[s] = p;
+        values[s] = this.withSeedHoldings(s, p);
       } catch (err) {
         const seed = this.deps.seed.profile(s);
-        if (e) values[s] = { ...e.value, stale: true };
+        if (e) values[s] = this.withSeedHoldings(s, { ...e.value, stale: true });
         else if (seed) values[s] = seed;
         else {
           values[s] = null;
@@ -579,6 +647,7 @@ export class ProviderChain {
       providers,
       alphaVantageBudget: await this.deps.budget.status(),
       cache: this.deps.cache.backend,
+      ...(this.deps.cache.envPrefix ? { cacheEnvPrefix: this.deps.cache.envPrefix } : {}),
       seedCapturedAt: this.deps.seed.capturedAt,
     };
   }
