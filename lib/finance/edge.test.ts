@@ -300,3 +300,15 @@ describe('compareSchedules', () => {
     expect(() => compareSchedules([s, s], { P: 1, C: 0, returns: [0], horizons: [1] })).toThrow(RangeError);
   });
 });
+
+import { assetClassExposure as _ace } from './lookthrough';
+import { describe as _d, it as _it, expect as _e } from 'vitest';
+_d('asset class: crypto allocation key', () => {
+  _it('maps a spot crypto ETF allocation {crypto: 1} to Crypto, not Other', () => {
+    const r = _ace([
+      { symbol: 'IBIT', value: 100, holdings: [{ symbol: 'bitcoin', name: 'Bitcoin', weight: 1 }], coverage: 1, assetClass: 'fund', assetAllocation: { stock: 0, bond: 0, cash: 0, other: 0, crypto: 1 } },
+    ]);
+    _e(r.exposures.find((x) => x.key === 'Crypto')?.weight).toBeCloseTo(1, 10);
+    _e(r.exposures.find((x) => x.key === 'Other')).toBeUndefined();
+  });
+});

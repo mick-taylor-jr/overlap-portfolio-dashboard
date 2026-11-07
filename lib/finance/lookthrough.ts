@@ -135,6 +135,7 @@ const ALLOCATION_LABELS: Record<string, string> = {
   other: 'Other',
   preferred: 'Other',
   convertible: 'Other',
+  crypto: 'Crypto',
 };
 
 const ASSET_CLASS_LABELS: Record<string, string> = {
