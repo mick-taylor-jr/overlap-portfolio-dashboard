@@ -24,6 +24,13 @@ export async function GET(request: Request): Promise<Response> {
   await connection();
   const n = Number.parseInt(process.env.OVERLAP_WARM_MAX ?? '', 10);
   const max = Number.isFinite(n) && n > 0 ? n : 5;
-  const report = await getChain().warmProfiles(max);
+  // Optional ?symbols=VOO,VTI,QQQ puts those first (still within the same budget and max).
+  const raw = new URL(request.url).searchParams.get('symbols') ?? '';
+  const prefer = raw
+    .split(',')
+    .map((x) => x.trim())
+    .filter((x) => /^[A-Za-z0-9.\-]{1,15}$/.test(x))
+    .slice(0, 10);
+  const report = await getChain().warmProfiles(max, prefer);
   return json(report);
 }

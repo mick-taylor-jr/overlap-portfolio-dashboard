@@ -403,7 +403,7 @@ export class ProviderChain {
    * Order: never cached -> cached from a non-AV source -> AV-sourced, oldest first. AV-sourced
    * entries with > 1 day of freshness left are skipped. Stops at the budget reserve.
    */
-  async warmProfiles(max: number): Promise<WarmReport> {
+  async warmProfiles(max: number, prefer: string[] = []): Promise<WarmReport> {
     const budget = this.deps.budget;
     const report: WarmReport = { warmed: [], skipped: [], failed: {}, stoppedReason: null, budget: await budget.status() };
     const av = this.active('alphavantage');
@@ -413,8 +413,15 @@ export class ProviderChain {
     }
     const now = this.now();
     const ranked: Array<{ s: string; rank: number; storedAt: number }> = [];
-    for (const s of this.deps.seed.fundSymbols()) {
+    const preferred = new Set(prefer.map((x) => normalizeTicker(x)));
+    const candidates = [...new Set([...preferred, ...this.deps.seed.fundSymbols()])];
+    for (const s of candidates) {
       const e = await this.deps.cache.get<FundProfile>(this.profileKey(s));
+      // Explicitly requested symbols go first unless they already hold a fresh Alpha Vantage profile.
+      if (preferred.has(s) && !(e && e.value.source === 'alphavantage' && e.freshUntil - now >= 24 * 3600 * 1000)) {
+        ranked.push({ s, rank: -1, storedAt: e?.storedAt ?? 0 });
+        continue;
+      }
       if (!e) ranked.push({ s, rank: 0, storedAt: 0 });
       else if (e.value.source !== 'alphavantage') ranked.push({ s, rank: 1, storedAt: e.storedAt });
       else if (e.freshUntil - now < 24 * 3600 * 1000) ranked.push({ s, rank: 2, storedAt: e.storedAt });

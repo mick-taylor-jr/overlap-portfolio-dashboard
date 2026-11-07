@@ -270,4 +270,9 @@ describe('cron warm', () => {
     expect((await s.chain.warmProfiles(2)).warmed).toHaveLength(2);
     expect((await setup({ av: null, seed: { profiles: ['SPY'] } }).chain.warmProfiles(5)).stoppedReason).toMatch(/not configured/);
   });
+  it('warms explicitly requested symbols first', async () => {
+    const s = setup({ seed: { profiles: ['SPY', 'VOO', 'QQQ', 'VTI'] } });
+    const r = await s.chain.warmProfiles(2, ['vti', 'QQQ']);
+    expect(r.warmed).toEqual(['VTI', 'QQQ']);
+  });
 });
