@@ -1,0 +1,13 @@
+# coingecko.com homepage table, fetched 2026-11-06 (no timestamp on page)
+bitcoin|75813.16
+ethereum|2241.00
+tether|0.9991
+ripple|1.15
+solana|89.89
+usd-coin|0.9997
+dogecoin|0.07181
+cardano|0.1838
+chainlink|10.79
+avalanche-2|8.30
+litecoin|52.32
+polkadot|0.9038

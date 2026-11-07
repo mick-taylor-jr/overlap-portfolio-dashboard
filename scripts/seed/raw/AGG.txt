@@ -1,0 +1,10 @@
+asof=2026-07-30|total=13314|src=stockanalysis.com/etf/agg/holdings|note=bond fund; top-10 bond lines only; BlackRock Cash (2.85%) cash sweep excluded; treasury symbols are synthetic UST-<coupon>-<maturity> keys
+UST-4.625-2035-02-15|US Treasury Note 4.625% 2035-02-15|0.42
+UST-4-2030-02-28|US Treasury Note 4% 2030-02-28|0.41
+UST-4.25-2034-11-15|US Treasury Note 4.25% 2034-11-15|0.41
+UST-4.375-2034-05-15|US Treasury Note 4.375% 2034-05-15|0.40
+UST-4.125-2036-02-15|US Treasury Note 4.125% 2036-02-15|0.40
+UST-3.875-2034-08-15|US Treasury Note 3.875% 2034-08-15|0.40
+UST-4.25-2035-08-15|US Treasury Note 4.25% 2035-08-15|0.39
+UST-4.25-2035-05-15|US Treasury Note 4.25% 2035-05-15|0.39
+UST-4.5-2033-11-15|US Treasury Note 4.5% 2033-11-15|0.39

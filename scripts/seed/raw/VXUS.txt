@@ -1,0 +1,24 @@
+asof=2026-09-30|total=8999|src=stockanalysis.com/etf/vxus/holdings|note=excluded 2 non-security rows (Slcmt1142 1.66% cash collateral, Mktliq 12/31/2049 0.59% market liquidity)
+TPE:2330|Taiwan Semiconductor Manufacturing Company Limited|4.27
+KRX:005930|Samsung Electronics Co., Ltd.|2.03
+KRX:000660|SK hynix Inc.|1.67
+AMS:ASML|ASML Holding N.V.|1.55
+HKG:0700|Tencent Holdings Limited|0.76
+LON:HSBA|HSBC Holdings plc|0.76
+SWX:ROP|Roche Holding AG|0.66
+LON:SHEL|Shell plc|0.62
+TSX:RY|Royal Bank of Canada|0.62
+SWX:NOVN|Novartis AG|0.60
+BABAF|Alibaba Group Holding Limited|0.57
+TYO:8306|Mitsubishi UFJ Financial Group, Inc.|0.57
+LON:AZN|AstraZeneca PLC|0.54
+SWX:NESN|Nestle S.A.|0.52
+TPE:2454|MediaTek Inc.|0.51
+ETR:SIE|Siemens Aktiengesellschaft|0.50
+ASX:BHP|BHP Group Limited|0.48
+ETR:SAP|SAP SE|0.46
+BME:SAN|Banco Santander, S.A.|0.45
+TSX:TD|The Toronto-Dominion Bank|0.43
+TYO:7203|Toyota Motor Corporation|0.43
+SHOP|Shopify Inc.|0.41
+ETR:ALV|Allianz SE|0.40

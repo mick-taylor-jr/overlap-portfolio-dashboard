@@ -1,0 +1,25 @@
+asof=2026-09-30|total=3961|src=stockanalysis.com/etf/vea/holdings|note=excluded 1 non-security row (Slbbh1142 1.07% securities-lending cash collateral)
+KRX:005930|Samsung Electronics Co., Ltd.|2.81
+KRX:000660|SK hynix Inc.|2.30
+AMS:ASML|ASML Holding N.V.|2.14
+LON:HSBA|HSBC Holdings plc|1.05
+SWX:ROP|Roche Holding AG|0.90
+LON:SHEL|Shell plc|0.86
+TSX:RY|Royal Bank of Canada|0.85
+SWX:NOVN|Novartis AG|0.82
+TYO:8306|Mitsubishi UFJ Financial Group, Inc.|0.78
+LON:AZN|AstraZeneca PLC|0.75
+SWX:NESN|Nestle S.A.|0.72
+ETR:SIE|Siemens Aktiengesellschaft|0.70
+ASX:BHP|BHP Group Limited|0.67
+ETR:SAP|SAP SE|0.63
+BME:SAN|Banco Santander, S.A.|0.62
+TSX:TD|The Toronto-Dominion Bank|0.60
+TYO:7203|Toyota Motor Corporation|0.60
+SHOP|Shopify Inc.|0.56
+ETR:ALV|Allianz SE|0.55
+EPA:SU|Schneider Electric S.E.|0.55
+ASX:CBA|Commonwealth Bank of Australia|0.54
+EPA:TTE|TotalEnergies SE|0.53
+TYO:8035|Tokyo Electron Limited|0.51
+LON:RR|Rolls-Royce Holdings plc|0.50

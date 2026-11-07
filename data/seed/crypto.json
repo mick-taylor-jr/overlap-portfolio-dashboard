@@ -1,1 +1,53 @@
-{"capturedAt":"1970-01-01","prices":[]}
+{
+  "capturedAt": "2026-11-07",
+  "prices": [
+    {
+      "id": "bitcoin",
+      "usd": 75813.16
+    },
+    {
+      "id": "ethereum",
+      "usd": 2241
+    },
+    {
+      "id": "tether",
+      "usd": 0.9991
+    },
+    {
+      "id": "ripple",
+      "usd": 1.15
+    },
+    {
+      "id": "solana",
+      "usd": 89.89
+    },
+    {
+      "id": "usd-coin",
+      "usd": 0.9997
+    },
+    {
+      "id": "dogecoin",
+      "usd": 0.07181
+    },
+    {
+      "id": "cardano",
+      "usd": 0.1838
+    },
+    {
+      "id": "chainlink",
+      "usd": 10.79
+    },
+    {
+      "id": "avalanche-2",
+      "usd": 8.3
+    },
+    {
+      "id": "litecoin",
+      "usd": 52.32
+    },
+    {
+      "id": "polkadot",
+      "usd": 0.9038
+    }
+  ]
+}

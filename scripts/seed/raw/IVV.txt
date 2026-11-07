@@ -1,0 +1,26 @@
+asof=2026-10-20|total=508|src=stockanalysis.com/etf/ivv/holdings
+NVDA|NVIDIA Corporation|7.87
+AAPL|Apple Inc.|7.44
+MSFT|Microsoft Corporation|5.93
+AMZN|Amazon.com, Inc.|3.87
+GOOGL|Alphabet Inc. (Class A)|3.00
+GOOG|Alphabet Inc. (Class C)|2.40
+AVGO|Broadcom Inc.|2.39
+META|Meta Platforms, Inc.|2.30
+TSLA|Tesla, Inc.|1.58
+LLY|Eli Lilly and Company|1.54
+MU|Micron Technology, Inc.|1.52
+BRK.B|Berkshire Hathaway Inc. (Class B)|1.51
+JPM|JPMorgan Chase & Co.|1.34
+AMD|Advanced Micro Devices, Inc.|1.31
+XOM|Exxon Mobil Corporation|1.10
+V|Visa Inc.|1.04
+JNJ|Johnson & Johnson|0.94
+WMT|Walmart Inc.|0.79
+ABBV|AbbVie Inc.|0.77
+MA|Mastercard Incorporated|0.75
+INTC|Intel Corporation|0.68
+CVX|Chevron Corporation|0.67
+PLTR|Palantir Technologies Inc.|0.67
+COST|Costco Wholesale Corporation|0.66
+CSCO|Cisco Systems, Inc.|0.63

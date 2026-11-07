@@ -1,0 +1,26 @@
+asof=2026-09-30|total=603|src=stockanalysis.com/etf/vym/holdings
+AVGO|Broadcom Inc.|6.93
+JPM|JPMorgan Chase & Co.|3.75
+XOM|Exxon Mobil Corporation|2.84
+JNJ|Johnson & Johnson|2.71
+ABBV|AbbVie Inc.|1.96
+CSCO|Cisco Systems, Inc.|1.80
+CVX|Chevron Corporation|1.61
+CAT|Caterpillar Inc.|1.56
+MRK|Merck & Co., Inc.|1.52
+BAC|Bank of America Corporation|1.50
+PG|The Procter & Gamble Company|1.44
+KO|The Coca-Cola Company|1.42
+UNH|UnitedHealth Group Incorporated|1.41
+PM|Philip Morris International Inc.|1.26
+HD|The Home Depot, Inc.|1.20
+TXN|Texas Instruments Incorporated|1.08
+RTX|RTX Corporation|1.06
+GS|The Goldman Sachs Group, Inc.|1.03
+WFC|Wells Fargo & Company|1.03
+ORCL|Oracle Corporation|1.00
+LIN|Linde plc|0.93
+C|Citigroup Inc.|0.91
+MS|Morgan Stanley|0.89
+AMGN|Amgen Inc.|0.89
+IBM|International Business Machines Corporation|0.88

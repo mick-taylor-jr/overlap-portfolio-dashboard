@@ -1,0 +1,26 @@
+asof=2026-10-22|total=106|src=stockanalysis.com/etf/qqqm/holdings
+NVDA|NVIDIA Corporation|8.14
+AAPL|Apple Inc.|8.08
+MSFT|Microsoft Corporation|6.16
+AMZN|Amazon.com, Inc.|4.30
+MU|Micron Technology, Inc.|4.25
+AMD|Advanced Micro Devices, Inc.|3.64
+TSLA|Tesla, Inc.|3.13
+META|Meta Platforms, Inc.|3.07
+GOOGL|Alphabet Inc. (Class A)|3.03
+GOOG|Alphabet Inc. (Class C)|2.82
+SPCX|Space Exploration Technologies Corp.|2.73
+WMT|Walmart Inc.|2.59
+AVGO|Broadcom Inc.|2.45
+COST|Costco Wholesale Corporation|1.98
+PLTR|Palantir Technologies Inc.|1.98
+INTC|Intel Corporation|1.97
+CSCO|Cisco Systems, Inc.|1.82
+AMAT|Applied Materials, Inc.|1.31
+PANW|Palo Alto Networks, Inc.|1.27
+LRCX|Lam Research Corporation|1.26
+NFLX|Netflix, Inc.|1.23
+TXN|Texas Instruments Incorporated|1.12
+CRWD|CrowdStrike Holdings, Inc.|1.07
+AMGN|Amgen Inc.|1.06
+LIN|Linde plc|1.03

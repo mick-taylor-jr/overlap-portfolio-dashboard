@@ -1,0 +1,26 @@
+asof=2026-09-30|total=311|src=stockanalysis.com/etf/vtv/holdings
+MU|Micron Technology, Inc.|4.56
+JPM|JPMorgan Chase & Co.|3.33
+BRK.B|Berkshire Hathaway Inc. (Class B)|2.92
+XOM|Exxon Mobil Corporation|2.56
+JNJ|Johnson & Johnson|2.42
+ABBV|AbbVie Inc.|1.75
+WMT|Walmart Inc.|1.72
+CVX|Chevron Corporation|1.45
+CSCO|Cisco Systems, Inc.|1.45
+CAT|Caterpillar Inc.|1.41
+BAC|Bank of America Corporation|1.37
+MRK|Merck & Co., Inc.|1.36
+PG|The Procter & Gamble Company|1.28
+KO|The Coca-Cola Company|1.26
+UNH|UnitedHealth Group Incorporated|1.25
+PM|Philip Morris International Inc.|1.13
+HD|The Home Depot, Inc.|1.08
+RTX|RTX Corporation|0.95
+TMO|Thermo Fisher Scientific Inc.|0.95
+GS|The Goldman Sachs Group, Inc.|0.93
+WFC|Wells Fargo & Company|0.92
+AMGN|Amgen Inc.|0.86
+MS|Morgan Stanley|0.84
+LIN|Linde plc|0.83
+C|Citigroup Inc.|0.82

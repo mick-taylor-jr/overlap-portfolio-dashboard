@@ -1,0 +1,26 @@
+asof=2026-10-23|total=80|src=stockanalysis.com/etf/xlf/holdings
+BRK.B|Berkshire Hathaway Inc. (Class B)|12.80
+JPM|JPMorgan Chase & Co.|11.18
+V|Visa Inc.|8.81
+MA|Mastercard Incorporated|6.39
+BAC|Bank of America Corporation|4.17
+GS|The Goldman Sachs Group, Inc.|3.23
+WFC|Wells Fargo & Company|3.16
+MS|Morgan Stanley|2.72
+C|Citigroup Inc.|2.57
+AXP|American Express Company|2.09
+BLK|BlackRock, Inc.|2.04
+SCHW|The Charles Schwab Corporation|1.87
+SPGI|S&P Global Inc.|1.72
+PGR|The Progressive Corporation|1.68
+CB|Chubb Limited|1.58
+COF|Capital One Financial Corporation|1.57
+CME|CME Group Inc.|1.39
+BNY|The Bank of New York Mellon Corporation|1.25
+MRSH|Marsh & McLennan Companies, Inc.|1.19
+USB|U.S. Bancorp|1.18
+ICE|Intercontinental Exchange, Inc.|1.16
+PNC|The PNC Financial Services Group, Inc.|1.14
+BX|Blackstone Inc.|1.12
+TRV|The Travelers Companies, Inc.|1.05
+HOOD|Robinhood Markets, Inc.|0.95

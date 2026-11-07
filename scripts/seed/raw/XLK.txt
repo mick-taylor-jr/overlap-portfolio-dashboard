@@ -1,0 +1,26 @@
+asof=2026-10-23|total=78|src=stockanalysis.com/etf/xlk/holdings
+NVDA|NVIDIA Corporation|15.24
+AAPL|Apple Inc.|15.14
+MSFT|Microsoft Corporation|11.62
+AVGO|Broadcom Inc.|4.57
+AMD|Advanced Micro Devices, Inc.|4.56
+MU|Micron Technology, Inc.|3.92
+PLTR|Palantir Technologies Inc.|2.74
+INTC|Intel Corporation|2.61
+CSCO|Cisco Systems, Inc.|2.54
+PANW|Palo Alto Networks, Inc.|1.87
+AMAT|Applied Materials, Inc.|1.81
+LRCX|Lam Research Corporation|1.74
+CRWD|CrowdStrike Holdings, Inc.|1.58
+TXN|Texas Instruments Incorporated|1.57
+IBM|International Business Machines Corporation|1.44
+ORCL|Oracle Corporation|1.32
+CRM|Salesforce, Inc.|1.23
+MRVL|Marvell Technology, Inc.|1.21
+ADI|Analog Devices, Inc.|1.15
+KLAC|KLA Corporation|1.15
+QCOM|QUALCOMM Incorporated|1.14
+APH|Amphenol Corporation|1.10
+SNDK|Sandisk Corporation|1.09
+ANET|Arista Networks, Inc.|1.09
+NOW|ServiceNow, Inc.|0.99

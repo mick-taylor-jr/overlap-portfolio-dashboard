@@ -1,0 +1,24 @@
+asof=2026-09-30|total=10242|src=stockanalysis.com/etf/vt/holdings|note=excluded 2 non-security rows (Slbbh1142 0.54%, Mktliq 12/31/2049 0.39%)
+NVDA|NVIDIA Corporation|4.54
+AAPL|Apple Inc.|4.11
+MSFT|Microsoft Corporation|3.25
+AMZN|Amazon.com, Inc.|2.06
+GOOGL|Alphabet Inc. (Class A)|1.73
+TPE:2330|Taiwan Semiconductor Manufacturing Company Limited|1.62
+AVGO|Broadcom Inc.|1.39
+META|Meta Platforms, Inc.|1.36
+GOOG|Alphabet Inc. (Class C)|1.36
+MU|Micron Technology, Inc.|1.02
+TSLA|Tesla, Inc.|0.88
+AMD|Advanced Micro Devices, Inc.|0.85
+LLY|Eli Lilly and Company|0.79
+KRX:005930|Samsung Electronics Co., Ltd.|0.77
+JPM|JPMorgan Chase & Co.|0.75
+BRK.B|Berkshire Hathaway Inc. (Class B)|0.70
+KRX:000660|SK hynix Inc.|0.63
+AMS:ASML|ASML Holding N.V.|0.59
+XOM|Exxon Mobil Corporation|0.57
+JNJ|Johnson & Johnson|0.54
+V|Visa Inc.|0.52
+INTC|Intel Corporation|0.47
+ABBV|AbbVie Inc.|0.40

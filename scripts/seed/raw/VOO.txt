@@ -1,0 +1,26 @@
+asof=2026-09-30|total=518|src=stockanalysis.com/etf/voo/holdings
+NVDA|NVIDIA Corporation|8.39
+AAPL|Apple Inc.|7.38
+MSFT|Microsoft Corporation|5.78
+AMZN|Amazon.com, Inc.|3.71
+GOOGL|Alphabet Inc. (Class A)|3.07
+AVGO|Broadcom Inc.|2.54
+GOOG|Alphabet Inc. (Class C)|2.45
+META|Meta Platforms, Inc.|2.43
+MU|Micron Technology, Inc.|1.83
+TSLA|Tesla, Inc.|1.52
+AMD|Advanced Micro Devices, Inc.|1.52
+BRK.B|Berkshire Hathaway Inc. (Class B)|1.41
+LLY|Eli Lilly and Company|1.41
+JPM|JPMorgan Chase & Co.|1.34
+XOM|Exxon Mobil Corporation|1.02
+JNJ|Johnson & Johnson|0.97
+V|Visa Inc.|0.91
+INTC|Intel Corporation|0.91
+WMT|Walmart Inc.|0.70
+ABBV|AbbVie Inc.|0.70
+MA|Mastercard Incorporated|0.68
+PLTR|Palantir Technologies Inc.|0.65
+CSCO|Cisco Systems, Inc.|0.64
+LRCX|Lam Research Corporation|0.62
+AMAT|Applied Materials, Inc.|0.62

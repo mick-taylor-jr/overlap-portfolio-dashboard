@@ -1,0 +1,26 @@
+asof=2026-10-23|total=64|src=stockanalysis.com/etf/xlv/holdings
+LLY|Eli Lilly and Company|15.64
+JNJ|Johnson & Johnson|9.76
+ABBV|AbbVie Inc.|7.75
+UNH|UnitedHealth Group Incorporated|5.76
+MRK|Merck & Co., Inc.|5.50
+TMO|Thermo Fisher Scientific Inc.|3.82
+AMGN|Amgen Inc.|3.65
+GILD|Gilead Sciences, Inc.|2.97
+ABT|Abbott Laboratories|2.75
+PFE|Pfizer Inc.|2.63
+ISRG|Intuitive Surgical, Inc.|2.45
+DHR|Danaher Corporation|2.21
+VRTX|Vertex Pharmaceuticals Incorporated|2.04
+BMY|Bristol-Myers Squibb Company|1.93
+CVS|CVS Health Corporation|1.84
+MDT|Medtronic plc|1.79
+MCK|McKesson Corporation|1.79
+SYK|Stryker Corporation|1.65
+ELV|Elevance Health, Inc.|1.46
+CI|The Cigna Group|1.25
+REGN|Regeneron Pharmaceuticals, Inc.|1.21
+MRNA|Moderna, Inc.|1.14
+HCA|HCA Healthcare, Inc.|1.06
+BSX|Boston Scientific Corporation|1.02
+COR|Cencora, Inc.|0.97

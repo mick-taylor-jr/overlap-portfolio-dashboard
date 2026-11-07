@@ -1,0 +1,26 @@
+asof=2026-10-22|total=509|src=stockanalysis.com/etf/rsp/holdings
+PTC|PTC Inc.|0.30
+MRNA|Moderna, Inc.|0.29
+ACN|Accenture plc|0.28
+IT|Gartner, Inc.|0.27
+HAS|Hasbro, Inc.|0.26
+ILMN|Illumina, Inc.|0.26
+MTD|Mettler-Toledo International Inc.|0.26
+RVTY|Revvity, Inc.|0.25
+ISRG|Intuitive Surgical, Inc.|0.25
+P|Everpure, Inc.|0.25
+CRL|Charles River Laboratories International, Inc.|0.24
+CRWD|CrowdStrike Holdings, Inc.|0.24
+VEEV|Veeva Systems Inc.|0.24
+ADSK|Autodesk, Inc.|0.24
+NOW|ServiceNow, Inc.|0.24
+CTSH|Cognizant Technology Solutions Corporation|0.24
+GDDY|GoDaddy Inc.|0.24
+DDOG|Datadog, Inc.|0.24
+A|Agilent Technologies, Inc.|0.24
+BIIB|Biogen Inc.|0.23
+FDS|FactSet Research Systems Inc.|0.23
+KR|The Kroger Co.|0.23
+ALLE|Allegion plc|0.23
+MAR|Marriott International, Inc.|0.23
+EBAY|eBay Inc.|0.23

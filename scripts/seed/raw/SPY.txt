@@ -1,0 +1,26 @@
+asof=2026-10-23|total=505|src=stockanalysis.com/etf/spy/holdings
+NVDA|NVIDIA Corporation|7.77
+AAPL|Apple Inc.|7.72
+MSFT|Microsoft Corporation|5.93
+AMZN|Amazon.com, Inc.|3.70
+GOOGL|Alphabet Inc. (Class A)|2.86
+AVGO|Broadcom Inc.|2.33
+GOOG|Alphabet Inc. (Class C)|2.30
+META|Meta Platforms, Inc.|2.16
+TSLA|Tesla, Inc.|1.60
+LLY|Eli Lilly and Company|1.55
+BRK.B|Berkshire Hathaway Inc. (Class B)|1.54
+MU|Micron Technology, Inc.|1.51
+JPM|JPMorgan Chase & Co.|1.34
+AMD|Advanced Micro Devices, Inc.|1.28
+XOM|Exxon Mobil Corporation|1.15
+V|Visa Inc.|1.06
+JNJ|Johnson & Johnson|0.97
+WMT|Walmart Inc.|0.81
+ABBV|AbbVie Inc.|0.77
+MA|Mastercard Incorporated|0.77
+CVX|Chevron Corporation|0.70
+PLTR|Palantir Technologies Inc.|0.69
+COST|Costco Wholesale Corporation|0.68
+INTC|Intel Corporation|0.66
+CSCO|Cisco Systems, Inc.|0.64

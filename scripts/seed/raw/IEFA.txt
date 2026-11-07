@@ -1,0 +1,26 @@
+asof=2026-09-29|total=2655|src=stockanalysis.com/etf/iefa/holdings
+AMS: ASML|ASML Holding N.V.|2.80
+LON: HSBA|HSBC Holdings plc|1.36
+SWX: ROP|Roche Holding AG|1.17
+LON: SHEL|Shell plc|1.09
+SWX: NOVN|Novartis AG|1.05
+LON: AZN|AstraZeneca PLC|0.99
+TYO: 8306|Mitsubishi UFJ Financial Group, Inc.|0.96
+SWX: NESN|Nestle S.A.|0.93
+ETR: SIE|Siemens Aktiengesellschaft|0.92
+ASX: BHP|BHP Group Limited|0.86
+ETR: SAP|SAP SE|0.85
+BME: SAN|Banco Santander, S.A.|0.80
+EPA: SU|Schneider Electric S.E.|0.73
+ETR: ALV|Allianz SE|0.72
+ASX: CBA|Commonwealth Bank of Australia|0.70
+TYO: 7203|Toyota Motor Corporation|0.69
+EPA: TTE|TotalEnergies SE|0.68
+LON: RR|Rolls-Royce Holdings plc|0.65
+TYO: 8035|Tokyo Electron Limited|0.64
+BME: BBVA|Banco Bilbao Vizcaya Argentaria, S.A.|0.63
+TYO: 6857|Advantest Corporation|0.63
+TYO: 8316|Sumitomo Mitsui Financial Group, Inc.|0.61
+TYO: 6501|Hitachi, Ltd.|0.61
+SWX: UBSG|UBS Group AG|0.60
+SWX: ABBN|ABB Ltd|0.60

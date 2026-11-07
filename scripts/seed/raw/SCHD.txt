@@ -1,0 +1,26 @@
+asof=2026-10-23|total=102|src=stockanalysis.com/etf/schd/holdings
+PG|The Procter & Gamble Company|4.40
+TXN|Texas Instruments Incorporated|4.30
+KO|The Coca-Cola Company|4.24
+CVX|Chevron Corporation|4.20
+UNH|UnitedHealth Group Incorporated|4.17
+COP|ConocoPhillips|4.16
+HD|The Home Depot, Inc.|4.03
+QCOM|QUALCOMM Incorporated|3.99
+AMGN|Amgen Inc.|3.96
+PEP|PepsiCo, Inc.|3.87
+MRK|Merck & Co., Inc.|3.81
+ACN|Accenture plc|3.76
+ABT|Abbott Laboratories|3.64
+VZ|Verizon Communications Inc.|3.53
+BMY|Bristol-Myers Squibb Company|3.06
+MO|Altria Group, Inc.|3.02
+ADP|Automatic Data Processing, Inc.|2.91
+LMT|Lockheed Martin Corporation|2.85
+BX|Blackstone Inc.|2.12
+EOG|EOG Resources, Inc.|1.97
+CMCSA|Comcast Corporation|1.92
+UPS|United Parcel Service, Inc.|1.81
+SLB|SLB N.V.|1.75
+TGT|Target Corporation|1.71
+FAST|Fastenal Company|1.44

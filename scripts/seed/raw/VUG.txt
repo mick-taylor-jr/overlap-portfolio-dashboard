@@ -1,0 +1,26 @@
+asof=2026-09-30|total=139|src=stockanalysis.com/etf/vug/holdings
+NVDA|NVIDIA Corporation|13.48
+AAPL|Apple Inc.|12.50
+MSFT|Microsoft Corporation|9.74
+GOOGL|Alphabet Inc. (Class A)|5.16
+AVGO|Broadcom Inc.|4.34
+AMZN|Amazon.com, Inc.|4.26
+META|Meta Platforms, Inc.|4.23
+GOOG|Alphabet Inc. (Class C)|4.09
+AMD|Advanced Micro Devices, Inc.|2.66
+TSLA|Tesla, Inc.|2.65
+LLY|Eli Lilly and Company|2.60
+V|Visa Inc.|1.59
+INTC|Intel Corporation|1.45
+MA|Mastercard Incorporated|1.16
+LRCX|Lam Research Corporation|1.11
+PLTR|Palantir Technologies Inc.|1.10
+AMAT|Applied Materials, Inc.|1.10
+COST|Costco Wholesale Corporation|1.09
+PANW|Palo Alto Networks, Inc.|0.88
+NFLX|Netflix, Inc.|0.78
+CRWD|CrowdStrike Holdings, Inc.|0.71
+KLAC|KLA Corporation|0.70
+SNDK|Sandisk Corporation|0.70
+GEV|GE Vernova Inc.|0.69
+ORCL|Oracle Corporation|0.65

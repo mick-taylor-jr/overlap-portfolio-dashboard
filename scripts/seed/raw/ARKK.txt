@@ -1,0 +1,26 @@
+asof=2026-10-26|total=45|src=stockanalysis.com/etf/arkk/holdings|note=two private holdings with no ticker (n/a) kept under PRIVATE: symbols so their weight is not dropped
+TSLA|Tesla, Inc.|10.41
+SPCX|Space Exploration Technologies Corp.|6.61
+TEM|Tempus AI, Inc.|5.32
+CRCL|Circle Internet Group, Inc.|5.23
+PRIVATE:OPENAI|OpenAI Group PBC Series C (private)|4.51
+CRSP|CRISPR Therapeutics AG|4.30
+COIN|Coinbase Global, Inc.|4.25
+SHOP|Shopify Inc.|3.31
+TWST|Twist Bioscience Corporation|3.14
+NVDA|NVIDIA Corporation|3.05
+HOOD|Robinhood Markets, Inc.|3.04
+PLTR|Palantir Technologies Inc.|2.77
+TXG|10x Genomics, Inc.|2.61
+BEAM|Beam Therapeutics Inc.|2.42
+XYZ|Block, Inc.|2.41
+CRWV|CoreWeave, Inc.|2.36
+AMZN|Amazon.com, Inc.|2.34
+META|Meta Platforms, Inc.|2.26
+NTLA|Intellia Therapeutics, Inc.|2.01
+AVGO|Broadcom Inc.|1.87
+BMNR|Bitmine Immersion Technologies, Inc.|1.83
+BLSH|Bullish|1.79
+AMD|Advanced Micro Devices, Inc.|1.74
+CBRS|Cerebras Systems Inc.|1.74
+PRIVATE:KALSHI|Kalshi Inc. (private)|1.74

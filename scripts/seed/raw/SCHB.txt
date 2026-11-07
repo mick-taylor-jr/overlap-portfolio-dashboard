@@ -1,0 +1,26 @@
+asof=2026-10-15|total=2395|src=stockanalysis.com/etf/schb/holdings
+NVDA|NVIDIA Corporation|7.20
+AAPL|Apple Inc.|6.73
+MSFT|Microsoft Corporation|5.33
+AMZN|Amazon.com, Inc.|3.35
+GOOGL|Alphabet Inc. (Class A)|2.74
+AVGO|Broadcom Inc.|2.22
+GOOG|Alphabet Inc. (Class C)|2.20
+META|Meta Platforms, Inc.|2.19
+TSLA|Tesla, Inc.|1.39
+MU|Micron Technology, Inc.|1.39
+BRK.B|Berkshire Hathaway Inc. (Class B)|1.32
+LLY|Eli Lilly and Company|1.30
+AMD|Advanced Micro Devices, Inc.|1.25
+JPM|JPMorgan Chase & Co.|1.20
+XOM|Exxon Mobil Corporation|0.98
+V|Visa Inc.|0.90
+JNJ|Johnson & Johnson|0.82
+WMT|Walmart Inc.|0.70
+ABBV|AbbVie Inc.|0.67
+MA|Mastercard Incorporated|0.66
+INTC|Intel Corporation|0.66
+PLTR|Palantir Technologies Inc.|0.62
+CSCO|Cisco Systems, Inc.|0.60
+CVX|Chevron Corporation|0.59
+COST|Costco Wholesale Corporation|0.59

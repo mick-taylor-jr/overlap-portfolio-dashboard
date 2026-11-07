@@ -1,1 +1,545 @@
-{"capturedAt":"1970-01-01","quotes":[]}
+{
+  "capturedAt": "2026-11-07",
+  "quotes": [
+    {
+      "symbol": "AAPL",
+      "price": 342.37,
+      "currency": "USD",
+      "name": "Apple Inc.",
+      "source": "seed",
+      "asOf": "2026-11-06",
+      "stale": true
+    },
+    {
+      "symbol": "MSFT",
+      "price": 530.61,
+      "currency": "USD",
+      "name": "Microsoft Corporation",
+      "source": "seed",
+      "asOf": "2026-11-06",
+      "stale": true
+    },
+    {
+      "symbol": "NVDA",
+      "price": 181.6,
+      "currency": "USD",
+      "name": "NVIDIA Corporation",
+      "source": "seed",
+      "asOf": "2026-11-05",
+      "stale": true
+    },
+    {
+      "symbol": "GOOGL",
+      "price": 282.57,
+      "currency": "USD",
+      "name": "Alphabet Inc. (Class A)",
+      "source": "seed",
+      "asOf": "2026-11-05",
+      "stale": true
+    },
+    {
+      "symbol": "GOOG",
+      "price": 278.22,
+      "currency": "USD",
+      "name": "Alphabet Inc. (Class C)",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "AMZN",
+      "price": 260.21,
+      "currency": "USD",
+      "name": "Amazon.com, Inc.",
+      "source": "seed",
+      "asOf": "2026-11-05",
+      "stale": true
+    },
+    {
+      "symbol": "META",
+      "price": 610.15,
+      "currency": "USD",
+      "name": "Meta Platforms, Inc.",
+      "source": "seed",
+      "asOf": "2026-11-06",
+      "stale": true
+    },
+    {
+      "symbol": "TSLA",
+      "price": 343.69,
+      "currency": "USD",
+      "name": "Tesla, Inc.",
+      "source": "seed",
+      "asOf": "2026-11-05",
+      "stale": true
+    },
+    {
+      "symbol": "BRK-B",
+      "price": 542.49,
+      "currency": "USD",
+      "name": "Berkshire Hathaway Inc. (Class B)",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "AVGO",
+      "price": 326.08,
+      "currency": "USD",
+      "name": "Broadcom Inc.",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "JPM",
+      "price": 335.52,
+      "currency": "USD",
+      "name": "JPMorgan Chase & Co.",
+      "source": "seed",
+      "asOf": "2026-10-27",
+      "stale": true
+    },
+    {
+      "symbol": "LLY",
+      "price": 1279.14,
+      "currency": "USD",
+      "name": "Eli Lilly and Company",
+      "source": "seed",
+      "asOf": "2026-10-26",
+      "stale": true
+    },
+    {
+      "symbol": "MA",
+      "price": 609.27,
+      "currency": "USD",
+      "name": "Mastercard Incorporated",
+      "source": "seed",
+      "asOf": "2026-10-27",
+      "stale": true
+    },
+    {
+      "symbol": "COST",
+      "price": 1046.47,
+      "currency": "USD",
+      "name": "Costco Wholesale Corporation",
+      "source": "seed",
+      "asOf": "2026-11-04",
+      "stale": true
+    },
+    {
+      "symbol": "PG",
+      "price": 159.22,
+      "currency": "USD",
+      "name": "The Procter & Gamble Company",
+      "source": "seed",
+      "asOf": "2026-10-27",
+      "stale": true
+    },
+    {
+      "symbol": "JNJ",
+      "price": 267.28,
+      "currency": "USD",
+      "name": "Johnson & Johnson",
+      "source": "seed",
+      "asOf": "2026-10-27",
+      "stale": true
+    },
+    {
+      "symbol": "NFLX",
+      "price": 62.08,
+      "currency": "USD",
+      "name": "Netflix, Inc.",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "ORCL",
+      "price": 115.16,
+      "currency": "USD",
+      "name": "Oracle Corporation",
+      "source": "seed",
+      "asOf": "2026-11-05",
+      "stale": true
+    },
+    {
+      "symbol": "AMD",
+      "price": 504.8,
+      "currency": "USD",
+      "name": "Advanced Micro Devices, Inc.",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "KO",
+      "price": 92.68,
+      "currency": "USD",
+      "name": "The Coca-Cola Company",
+      "source": "seed",
+      "asOf": "2026-10-27",
+      "stale": true
+    },
+    {
+      "symbol": "BAC",
+      "price": 50.01,
+      "currency": "USD",
+      "name": "Bank of America Corporation",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "CVX",
+      "price": 230.93,
+      "currency": "USD",
+      "name": "Chevron Corporation",
+      "source": "seed",
+      "asOf": "2026-10-27",
+      "stale": true
+    },
+    {
+      "symbol": "MRK",
+      "price": 140.75,
+      "currency": "USD",
+      "name": "Merck & Co., Inc.",
+      "source": "seed",
+      "asOf": "2026-10-27",
+      "stale": true
+    },
+    {
+      "symbol": "SPY",
+      "price": 755.72,
+      "currency": "USD",
+      "name": "State Street SPDR S&P 500 ETF Trust",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "VOO",
+      "price": 694.81,
+      "currency": "USD",
+      "name": "Vanguard S&P 500 ETF",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "IVV",
+      "price": 759.18,
+      "currency": "USD",
+      "name": "iShares Core S&P 500 ETF",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "VTI",
+      "price": 371.57,
+      "currency": "USD",
+      "name": "Vanguard Total Stock Market ETF",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "ITOT",
+      "price": 166.73,
+      "currency": "USD",
+      "name": "iShares Core S&P Total U.S. Stock Market ETF",
+      "source": "seed",
+      "asOf": "2026-10-26",
+      "stale": true
+    },
+    {
+      "symbol": "SCHB",
+      "price": 29.41,
+      "currency": "USD",
+      "name": "Schwab U.S. Broad Market ETF",
+      "source": "seed",
+      "asOf": "2026-10-26",
+      "stale": true
+    },
+    {
+      "symbol": "QQQ",
+      "price": 690.49,
+      "currency": "USD",
+      "name": "Invesco QQQ Trust",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "QQQM",
+      "price": 284.34,
+      "currency": "USD",
+      "name": "Invesco NASDAQ 100 ETF",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "VGT",
+      "price": 120.97,
+      "currency": "USD",
+      "name": "Vanguard Information Technology ETF",
+      "source": "seed",
+      "asOf": "2026-10-26",
+      "stale": true
+    },
+    {
+      "symbol": "XLK",
+      "price": 164.74,
+      "currency": "USD",
+      "name": "State Street Technology Select Sector SPDR ETF",
+      "source": "seed",
+      "asOf": "2026-11-06",
+      "stale": true
+    },
+    {
+      "symbol": "SCHD",
+      "price": 35.78,
+      "currency": "USD",
+      "name": "Schwab U.S. Dividend Equity ETF",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "VYM",
+      "price": 162.41,
+      "currency": "USD",
+      "name": "Vanguard High Dividend Yield ETF",
+      "source": "seed",
+      "asOf": "2026-10-26",
+      "stale": true
+    },
+    {
+      "symbol": "VEA",
+      "price": 69.33,
+      "currency": "USD",
+      "name": "Vanguard FTSE Developed Markets ETF",
+      "source": "seed",
+      "asOf": "2026-10-26",
+      "stale": true
+    },
+    {
+      "symbol": "IEFA",
+      "price": 95.68,
+      "currency": "USD",
+      "name": "iShares Core MSCI EAFE ETF",
+      "source": "seed",
+      "asOf": "2026-10-23",
+      "stale": true
+    },
+    {
+      "symbol": "VT",
+      "price": 155.33,
+      "currency": "USD",
+      "name": "Vanguard Total World Stock ETF",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "AGG",
+      "price": 96.05,
+      "currency": "USD",
+      "name": "iShares Core U.S. Aggregate Bond ETF",
+      "source": "seed",
+      "asOf": "2026-10-26",
+      "stale": true
+    },
+    {
+      "symbol": "BND",
+      "price": 71.2,
+      "currency": "USD",
+      "name": "Vanguard Total Bond Market ETF",
+      "source": "seed",
+      "asOf": "2026-10-23",
+      "stale": true
+    },
+    {
+      "symbol": "TLT",
+      "price": 81.84,
+      "currency": "USD",
+      "name": "iShares 20+ Year Treasury Bond ETF",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "SCHG",
+      "price": 35.1,
+      "currency": "USD",
+      "name": "Schwab U.S. Large-Cap Growth ETF",
+      "source": "seed",
+      "asOf": "2026-10-26",
+      "stale": true
+    },
+    {
+      "symbol": "VTV",
+      "price": 226.24,
+      "currency": "USD",
+      "name": "Vanguard Value ETF",
+      "source": "seed",
+      "asOf": "2026-10-26",
+      "stale": true
+    },
+    {
+      "symbol": "RSP",
+      "price": 217.29,
+      "currency": "USD",
+      "name": "Invesco S&P 500 Equal Weight ETF",
+      "source": "seed",
+      "asOf": "2026-10-26",
+      "stale": true
+    },
+    {
+      "symbol": "XLF",
+      "price": 56.51,
+      "currency": "USD",
+      "name": "State Street Financial Select Sector SPDR ETF",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "XLV",
+      "price": 179.22,
+      "currency": "USD",
+      "name": "State Street Health Care Select Sector SPDR ETF",
+      "source": "seed",
+      "asOf": "2026-10-27",
+      "stale": true
+    },
+    {
+      "symbol": "ARKK",
+      "price": 81.84,
+      "currency": "USD",
+      "name": "ARK Innovation ETF",
+      "source": "seed",
+      "asOf": "2026-10-26",
+      "stale": true
+    },
+    {
+      "symbol": "IBIT",
+      "price": 42.88,
+      "currency": "USD",
+      "name": "iShares Bitcoin Trust ETF",
+      "source": "seed",
+      "asOf": "2026-11-06",
+      "stale": true
+    },
+    {
+      "symbol": "FBTC",
+      "price": 69.48,
+      "currency": "USD",
+      "name": "Fidelity Wise Origin Bitcoin Fund",
+      "source": "seed",
+      "asOf": "2026-10-26",
+      "stale": true
+    },
+    {
+      "symbol": "GBTC",
+      "price": 62.82,
+      "currency": "USD",
+      "name": "Grayscale Bitcoin Trust ETF",
+      "source": "seed",
+      "asOf": "2026-10-22",
+      "stale": true
+    },
+    {
+      "symbol": "ETHA",
+      "price": 52.66,
+      "currency": "USD",
+      "name": "iShares Ethereum Trust ETF",
+      "source": "seed",
+      "asOf": "2026-10-27",
+      "stale": true
+    },
+    {
+      "symbol": "VXUS",
+      "price": 82.37,
+      "currency": "USD",
+      "name": "Vanguard Total International Stock ETF",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "VUG",
+      "price": 87.53,
+      "currency": "USD",
+      "name": "Vanguard Growth ETF",
+      "source": "seed",
+      "asOf": "2026-10-26",
+      "stale": true
+    },
+    {
+      "symbol": "V",
+      "price": 413.59,
+      "currency": "USD",
+      "name": "Visa Inc.",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "UNH",
+      "price": 406.97,
+      "currency": "USD",
+      "name": "UnitedHealth Group Incorporated",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "HD",
+      "price": 329.2,
+      "currency": "USD",
+      "name": "The Home Depot, Inc.",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "WMT",
+      "price": 118.77,
+      "currency": "USD",
+      "name": "Walmart Inc.",
+      "source": "seed",
+      "asOf": "2026-10-28",
+      "stale": true
+    },
+    {
+      "symbol": "PEP",
+      "price": 132.63,
+      "currency": "USD",
+      "name": "PepsiCo, Inc.",
+      "source": "seed",
+      "asOf": "2026-10-28",
+      "stale": true
+    },
+    {
+      "symbol": "CRM",
+      "price": 229.17,
+      "currency": "USD",
+      "name": "Salesforce, Inc.",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    },
+    {
+      "symbol": "XOM",
+      "price": 187.25,
+      "currency": "USD",
+      "name": "Exxon Mobil Corporation",
+      "source": "seed",
+      "asOf": "2026-10-30",
+      "stale": true
+    }
+  ]
+}

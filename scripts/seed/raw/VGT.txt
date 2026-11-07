@@ -1,0 +1,26 @@
+asof=2026-09-30|total=323|src=stockanalysis.com/etf/vgt/holdings
+NVDA|NVIDIA Corporation|17.59
+AAPL|Apple Inc.|15.91
+MSFT|Microsoft Corporation|11.16
+MU|Micron Technology, Inc.|4.45
+AVGO|Broadcom Inc.|4.11
+AMD|Advanced Micro Devices, Inc.|3.68
+INTC|Intel Corporation|1.99
+CSCO|Cisco Systems, Inc.|1.60
+LRCX|Lam Research Corporation|1.56
+PLTR|Palantir Technologies Inc.|1.55
+AMAT|Applied Materials, Inc.|1.53
+PANW|Palo Alto Networks, Inc.|1.24
+CRWD|CrowdStrike Holdings, Inc.|1.02
+KLAC|KLA Corporation|0.98
+TXN|Texas Instruments Incorporated|0.98
+SNDK|Sandisk Corporation|0.97
+MRVL|Marvell Technology, Inc.|0.88
+ORCL|Oracle Corporation|0.85
+ANET|Arista Networks, Inc.|0.85
+APH|Amphenol Corporation|0.80
+STX|Seagate Technology Holdings plc|0.79
+IBM|International Business Machines Corporation|0.77
+QCOM|QUALCOMM Incorporated|0.76
+ADI|Analog Devices, Inc.|0.75
+CRM|Salesforce, Inc.|0.72

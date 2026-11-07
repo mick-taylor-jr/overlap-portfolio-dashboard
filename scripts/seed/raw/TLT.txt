@@ -1,0 +1,11 @@
+asof=2026-09-14|total=49|src=stockanalysis.com/etf/tlt/holdings|note=bond fund; top-10 lines; treasury symbols are synthetic UST-<coupon>-<maturity> keys
+UST-4.75-2055-05-15|US Treasury Bond 4.75% 2055-05-15|4.54
+UST-4.625-2054-05-15|US Treasury Bond 4.625% 2054-05-15|4.30
+UST-4.125-2053-08-15|US Treasury Bond 4.125% 2053-08-15|4.21
+UST-4.75-2056-02-15|US Treasury Bond 4.75% 2056-02-15|4.16
+UST-4.25-2054-02-15|US Treasury Bond 4.25% 2054-02-15|4.06
+UST-5-2056-05-15|US Treasury Bond 5% 2056-05-15|4.05
+UST-4.75-2053-11-15|US Treasury Bond 4.75% 2053-11-15|4.00
+UST-4.25-2054-08-15|US Treasury Bond 4.25% 2054-08-15|3.97
+UST-4.625-2055-11-15|US Treasury Bond 4.625% 2055-11-15|3.87
+UST-4.625-2055-02-15|US Treasury Bond 4.625% 2055-02-15|3.83
