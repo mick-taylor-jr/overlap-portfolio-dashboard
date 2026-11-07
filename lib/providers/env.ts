@@ -18,7 +18,7 @@ export function alphaVantageKey(env: NodeJS.ProcessEnv = process.env): string | 
 }
 
 export function coinGeckoKey(env: NodeJS.ProcessEnv = process.env): string | undefined {
-  return env.COINGECKO_API_KEY?.trim() || undefined;
+  return (env.COINGECKO_DEMO_API_KEY ?? env.COINGECKO_API_KEY)?.trim() || undefined;
 }
 
 /** Whether the provider has what it needs (yahoo-finance2 needs no key). */
