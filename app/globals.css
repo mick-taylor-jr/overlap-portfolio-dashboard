@@ -1,26 +1,128 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens. Restrained, analytics-grade palette.
+ * Categorical chart colors are an Okabe-Ito-derived, color-blind-safe set (--chart-1..8).
+ * Sequential heatmap ramp: --heat-0 (none) .. --heat-5 (max).
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fbfbfa;
+  --foreground: #16181d;
+  --card: #ffffff;
+  --card-foreground: #16181d;
+  --muted: #f2f2f0;
+  --muted-foreground: #5d6370;
+  --border: #e3e3df;
+  --input: #d9d9d4;
+  --ring: #2f5bd3;
+  --primary: #1f3f99;
+  --primary-foreground: #ffffff;
+  --accent: #eef2fb;
+  --accent-foreground: #1f3f99;
+  --warning: #9a5b00;
+  --warning-bg: #fff6e5;
+  --danger: #b42318;
+  --danger-bg: #fdecea;
+  --success: #1a7f4b;
+  --success-bg: #e8f6ee;
+
+  --chart-1: #0072b2;
+  --chart-2: #e69f00;
+  --chart-3: #009e73;
+  --chart-4: #cc79a7;
+  --chart-5: #56b4e9;
+  --chart-6: #d55e00;
+  --chart-7: #8a7f2d;
+  --chart-8: #6b6f7a;
+
+  --heat-0: #f4f6fb;
+  --heat-1: #d6e0f5;
+  --heat-2: #a9bde9;
+  --heat-3: #7090d6;
+  --heat-4: #3d63bf;
+  --heat-5: #1c3c8c;
+}
+
+.dark {
+  --background: #0e1014;
+  --foreground: #e7e9ee;
+  --card: #15181e;
+  --card-foreground: #e7e9ee;
+  --muted: #1c2027;
+  --muted-foreground: #9aa1ad;
+  --border: #2a2f38;
+  --input: #343a45;
+  --ring: #7ea0ff;
+  --primary: #8fb0ff;
+  --primary-foreground: #0e1014;
+  --accent: #1b2335;
+  --accent-foreground: #b9cbff;
+  --warning: #f2b54a;
+  --warning-bg: #2a2111;
+  --danger: #ff8a7a;
+  --danger-bg: #2c1513;
+  --success: #5fd29a;
+  --success-bg: #11261b;
+
+  --chart-1: #3d9be0;
+  --chart-2: #f0b43c;
+  --chart-3: #2fc095;
+  --chart-4: #dd8fbb;
+  --chart-5: #7cc6f0;
+  --chart-6: #ef7a2e;
+  --chart-7: #b7aa52;
+  --chart-8: #9aa1ad;
+
+  --heat-0: #171b24;
+  --heat-1: #1d2b4a;
+  --heat-2: #24407a;
+  --heat-3: #2f58a8;
+  --heat-4: #4a78d1;
+  --heat-5: #86a6f2;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Numbers: tabular, right-aligned where used in tables. */
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }

@@ -51,6 +51,11 @@ export interface Position {
   costBasis?: number;
   /** Optional account label (supports starter-pack multi-account aggregation). */
   account?: string;
+  /** Optional display name and GICS sector for direct positions (e.g. starter-pack synthetic securities). */
+  name?: string;
+  sector?: string;
+  /** Marks positions loaded from explicitly synthetic data (starter pack). */
+  synthetic?: boolean;
   feeOverrides?: FeeOverrides;
 }
 

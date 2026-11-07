@@ -152,7 +152,14 @@ export type FinanceApi = {
   tieredFee(aum: number, brackets: { upTo: number | null; rate: number }[]): number;
   advisoryFeeAmount(aum: number, fee: AdvisoryFee | undefined): number;
   effectiveRate(aum: number, fee: AdvisoryFee | undefined): number;
-  lookThrough(components: LookThroughInput[]): LookThroughResult;
+  /**
+   * keyOf maps a holding symbol to its grouping key (e.g. issuer: GOOG & GOOGL -> 'Alphabet').
+   * Default groups by symbol. Holdings for which keyOf returns null go to the Unresolved bucket.
+   */
+  lookThrough(
+    components: LookThroughInput[],
+    opts?: { keyOf?: (symbol: string, name: string) => { key: string; name: string } | null },
+  ): LookThroughResult;
   sectorExposure(components: LookThroughInput[]): LookThroughResult;
   assetClassExposure(components: LookThroughInput[]): LookThroughResult;
   concentration(result: LookThroughResult, naiveCount: number): ConcentrationMetrics;
