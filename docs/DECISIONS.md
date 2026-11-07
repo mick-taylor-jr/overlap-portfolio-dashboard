@@ -40,3 +40,6 @@ The starter pack's default guidance is "no UI unless the team asks". The team's 
 
 ## Build environment can't reach data APIs
 The build sandbox can reach npm but not Alpha Vantage, CoinGecko, Yahoo or SEC. Seed data was researched from issuer and public pages through web tools and is dated. Provider adapters are unit-tested against fixtures from documentation. Live response shapes get verified against the deployed Vercel functions, which can reach the APIs, and any differences are recorded in DATA_SOURCES.md.
+
+## 2026-11-07: Effective N is computed on the disclosed share
+The independent audit found that HHI over unrescaled exposures inflates effective N when holdings are partly disclosed. A 60/40 sample showed effective N 297 against 58 distinct names, and adding a fund with no holdings data increased effective N. HHI now uses `e_i / covered`, which equals the spec formula at full coverage (the test vector is unchanged). Property test: effective N ≤ distinct resolved holdings.

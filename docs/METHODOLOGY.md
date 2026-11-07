@@ -15,7 +15,7 @@ Each company's exposure is the sum of what every fund contributes to it, so the 
 If either fund's holdings are only partly known, the true overlap can only be higher, so it is shown as "≥ X%".
 
 ## Concentration
-- **HHI** = `Σ e_i²` over resolved exposures. **Effective number of holdings** = `1 / HHI`: the number of equal-sized positions with the same concentration.
+- **HHI** = `Σ (e_i / c)²` over resolved exposures, where `c` is the resolved share of the portfolio. With full coverage this is the textbook `Σ e_i²`. Rescaling stops undisclosed holdings from making a portfolio look more diversified. **Effective number of holdings** = `1 / HHI`: the number of equal-sized positions with the same concentration, among the holdings we can see.
 - **Top-1 / Top-5 / Top-10 share** of the portfolio.
 - **Flags** fire when a single name, a single sector or a fund pair goes above a threshold you set (defaults: 10%, 35%, 60%). They are descriptive heuristics, not advice.
 

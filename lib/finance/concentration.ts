@@ -1,6 +1,13 @@
 /**
  * Concentration metrics (spec 5.3), computed on RESOLVED exposures only (the Unresolved row is
- * excluded). Weights stay as fractions of the whole portfolio; they are NOT renormalized.
+ * excluded).
+ *
+ * HHI and effective N are computed on the resolved exposures RESCALED to the resolved share
+ * (e_i / covered). Without the rescaling, undisclosed weight would shrink every e_i and inflate
+ * effective N (e.g. adding a fund with no holdings data would make the portfolio look MORE
+ * diversified, and effective N could exceed the number of distinct holdings). With full coverage
+ * this is exactly the spec's HHI = Σ e_i². Top-1/5/10 shares stay as fractions of the whole
+ * portfolio (they are lower bounds when coverage < 1).
  */
 import { UNRESOLVED } from '@/lib/types';
 import type { ConcentrationMetrics, LookThroughResult } from './contracts';
@@ -19,7 +26,8 @@ export function concentration(result: LookThroughResult, naiveCount: number): Co
     .filter((e) => e.key !== UNRESOLVED)
     .map((e) => e.weight)
     .sort((a, b) => b - a);
-  const hhi = weights.reduce((s, w) => s + w * w, 0);
+  const covered = weights.reduce((s, w) => s + w, 0);
+  const hhi = covered > 0 ? weights.reduce((s, w) => s + (w / covered) * (w / covered), 0) : 0;
   const top = (k: number) => weights.slice(0, k).reduce((s, w) => s + w, 0);
   return {
     hhi,
