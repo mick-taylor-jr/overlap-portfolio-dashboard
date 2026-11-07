@@ -1,0 +1,5 @@
+[
+  { "symbol": "AAPL", "quoteType": "EQUITY", "regularMarketPrice": 225.5, "currency": "USD", "longName": "Apple Inc.", "regularMarketTime": "2026-11-06T21:00:00.000Z" },
+  { "symbol": "SPY", "quoteType": "ETF", "regularMarketPrice": { "raw": 600.12, "fmt": "600.12" }, "currency": "USD", "shortName": "SPDR S&P 500", "regularMarketTime": 1793998800 },
+  { "symbol": "BAD", "quoteType": "EQUITY", "regularMarketPrice": 0 }
+]

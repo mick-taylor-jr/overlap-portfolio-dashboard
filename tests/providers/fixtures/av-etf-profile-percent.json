@@ -1,0 +1,9 @@
+{
+  "net_expense_ratio": "0.20%",
+  "sectors": [{ "sector": "Information Technology", "weight": "51.3" }],
+  "holdings": [
+    { "symbol": "NVDA", "description": "NVIDIA CORP", "weight": "9.09" },
+    { "symbol": "MSFT", "description": "MICROSOFT CORP", "weight": "8.11%" },
+    { "symbol": "SMALL", "description": "SMALL CO", "weight": "0.5" }
+  ]
+}

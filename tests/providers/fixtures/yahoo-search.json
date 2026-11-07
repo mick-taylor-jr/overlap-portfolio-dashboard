@@ -1,0 +1,6 @@
+{ "count": 4, "quotes": [
+  { "symbol": "VOO", "quoteType": "ETF", "shortname": "Vanguard S&P 500 ETF", "exchange": "PCX", "exchDisp": "NYSEArca", "isYahooFinance": true, "index": "quotes", "score": 1 },
+  { "symbol": "VTSAX", "quoteType": "MUTUALFUND", "longname": "Vanguard Total Stock Market Index Fund Admiral", "exchange": "NAS", "isYahooFinance": true, "index": "quotes", "score": 1 },
+  { "symbol": "^GSPC", "quoteType": "INDEX", "shortname": "S&P 500", "exchange": "SNP", "isYahooFinance": true, "index": "quotes", "score": 1 },
+  { "index": "x", "name": "Vanguard Group", "permalink": "vanguard", "isYahooFinance": false }
+], "news": [] }

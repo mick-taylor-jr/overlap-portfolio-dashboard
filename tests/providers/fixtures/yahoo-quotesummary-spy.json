@@ -1,0 +1,14 @@
+{
+  "price": { "longName": "SPDR S&P 500 ETF Trust" },
+  "fundProfile": { "feesExpensesInvestment": { "annualReportExpenseRatio": 0.000945, "netExpRatio": 0.0945 } },
+  "topHoldings": {
+    "stockPosition": 0.9971, "bondPosition": 0, "cashPosition": 0.0029,
+    "holdings": [
+      { "symbol": "NVDA", "holdingName": "NVIDIA Corp", "holdingPercent": 0.0755 },
+      { "symbol": "MSFT", "holdingName": "Microsoft Corp", "holdingPercent": { "raw": 0.067, "fmt": "6.70%" } },
+      { "symbol": "BRK-B", "holdingName": "Berkshire Hathaway Inc Class B", "holdingPercent": 0.0165 },
+      { "holdingName": "No symbol row", "holdingPercent": 0.01 }
+    ],
+    "sectorWeightings": [ { "technology": 0.33 }, { "healthcare": 0.10 }, { "financial_services": 0.13 }, { "realestate": 0.02 } ]
+  }
+}

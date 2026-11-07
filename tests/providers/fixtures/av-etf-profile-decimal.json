@@ -1,0 +1,20 @@
+{
+  "net_assets": "300000000000",
+  "net_expense_ratio": "0.002",
+  "portfolio_turnover": "0.08",
+  "dividend_yield": "0.0056",
+  "inception_date": "1999-03-10",
+  "leveraged": "NO",
+  "sectors": [
+    { "sector": "INFORMATION TECHNOLOGY", "weight": "0.513" },
+    { "sector": "COMMUNICATION SERVICES", "weight": "0.157" },
+    { "sector": "CONSUMER DISCRETIONARY", "weight": "0.134" }
+  ],
+  "holdings": [
+    { "symbol": "NVDA", "description": "NVIDIA CORP", "weight": "0.0909" },
+    { "symbol": "MSFT", "description": "MICROSOFT CORP", "weight": "0.0811" },
+    { "symbol": "AAPL", "description": "APPLE INC", "weight": "0.0751" },
+    { "symbol": "BRK-B", "description": "BERKSHIRE HATHAWAY INC CLASS B", "weight": "0.005" },
+    { "symbol": "n/a", "description": "CASH", "weight": "0.001" }
+  ]
+}

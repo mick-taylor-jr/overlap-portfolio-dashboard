@@ -1,0 +1,5 @@
+{ "bestMatches": [
+  { "1. symbol": "VOO", "2. name": "Vanguard S&P 500 ETF", "3. type": "ETF", "4. region": "United States", "8. currency": "USD", "9. matchScore": "0.8" },
+  { "1. symbol": "VFIAX", "2. name": "Vanguard 500 Index Admiral", "3. type": "Mutual Fund", "4. region": "United States", "8. currency": "USD", "9. matchScore": "0.7" },
+  { "1. symbol": "TSCO.LON", "2. name": "Tesco PLC", "3. type": "Equity", "4. region": "United Kingdom", "8. currency": "GBX", "9. matchScore": "0.6" }
+] }

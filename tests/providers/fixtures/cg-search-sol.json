@@ -1,0 +1,5 @@
+{ "coins": [
+  { "id": "solana", "name": "Solana", "api_symbol": "solana", "symbol": "SOL", "market_cap_rank": 6, "thumb": "", "large": "" },
+  { "id": "wrapped-solana", "name": "Wrapped SOL", "api_symbol": "wrapped-solana", "symbol": "SOL", "market_cap_rank": 400, "thumb": "", "large": "" },
+  { "id": "sol-fake", "name": "Sol Fake", "api_symbol": "sol-fake", "symbol": "SOL", "market_cap_rank": null, "thumb": "", "large": "" }
+], "exchanges": [], "icos": [], "categories": [], "nfts": [] }
