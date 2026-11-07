@@ -4,29 +4,29 @@ import { ThemeToggle } from './theme-toggle';
 export function SiteHeader({ current }: { current: 'app' | 'methodology' }) {
   return (
     <header className="border-b border-border bg-card">
-      <div className="mx-auto flex h-14 max-w-[1280px] items-center gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2.5" aria-label="Overlap, portfolio dashboard home">
+      <div className="mx-auto flex h-14 max-w-[1280px] items-center gap-2 px-4 sm:gap-4 sm:px-6">
+        <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="Overlap, portfolio dashboard home">
           <Mark />
           <span className="text-[17px] font-semibold tracking-tight">Overlap</span>
         </Link>
         <span className="hidden text-[13px] text-muted-foreground md:inline">Look-through concentration and fees</span>
-        <nav aria-label="Primary" className="ml-auto flex items-center gap-1 text-[13px]">
+        <nav aria-label="Primary" className="ml-auto flex min-w-0 items-center gap-0.5 text-[13px] sm:gap-1">
           <Link
             href="/"
             aria-current={current === 'app' ? 'page' : undefined}
-            className="rounded px-2 py-1.5 text-muted-foreground hover:text-foreground aria-[current=page]:text-foreground"
+            className="rounded px-1.5 py-1.5 text-muted-foreground sm:px-2 hover:text-foreground aria-[current=page]:text-foreground"
           >
             Dashboard
           </Link>
           <Link
             href="/methodology"
             aria-current={current === 'methodology' ? 'page' : undefined}
-            className="rounded px-2 py-1.5 text-muted-foreground hover:text-foreground aria-[current=page]:text-foreground"
+            className="rounded px-1.5 py-1.5 text-muted-foreground sm:px-2 hover:text-foreground aria-[current=page]:text-foreground"
           >
             <span className="hidden sm:inline">Data and methodology</span>
             <span className="sm:hidden">Methodology</span>
           </Link>
-          <span className="ml-2">
+          <span className="ml-1 shrink-0 sm:ml-2">
             <ThemeToggle />
           </span>
         </nav>

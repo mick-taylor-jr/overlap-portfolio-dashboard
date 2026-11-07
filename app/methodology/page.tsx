@@ -24,7 +24,7 @@ export default function MethodologyPage() {
   return (
     <QueryProvider>
       <SiteHeader current="methodology" />
-      <main id="main" className="mx-auto grid w-full max-w-[1280px] flex-1 gap-10 px-4 py-8 sm:px-6 lg:grid-cols-[13rem_minmax(0,1fr)]">
+      <main id="main" className="mx-auto grid w-full max-w-[1280px] flex-1 grid-cols-1 gap-10 px-4 py-8 sm:px-6 lg:grid-cols-[13rem_minmax(0,1fr)]">
         <nav aria-label="On this page" className="hidden lg:block">
           <ul className="sticky top-6 flex flex-col gap-1.5 text-[13px]">
             {SECTIONS.map(([id, label]) => (
@@ -109,7 +109,7 @@ export default function MethodologyPage() {
               <li>Crypto and cash have no GICS sector; they appear as their own row in the sector chart rather than as &quot;not disclosed&quot;.</li>
               <li>Equity funds that report sector weights but no asset allocation are counted as stocks in the asset-class view.</li>
               <li>
-                Share links carry only tickers, asset classes and weights. Opening one scales the portfolio to a $100,000 notional. Portfolios are stored only in your
+                Share links carry tickers, asset classes and weights, plus account labels, names and sectors you entered, rate-only fee settings (expense ratio overrides, loads, advisory fee) and synthetic flags. They never carry share counts or dollar values. Opening one scales the portfolio to a $100,000 notional. Portfolios are stored only in your
                 browser; only ticker symbols are sent to the server to look up data.
               </li>
             </ul>
@@ -118,7 +118,8 @@ export default function MethodologyPage() {
           <Section id="providers" title="Data providers">
             <p>
               Each number shows its source and as-of time. Live data is fetched server-side and cached; when a provider fails, the app falls back to the last cached value and
-              then to bundled sample data, and labels it as such.
+              then to bundled sample data, and labels it as such. The bundled sample data was compiled by hand from issuer pages and stockanalysis.com, not from the live
+              providers.
             </p>
             <ProviderStatus />
           </Section>
@@ -139,7 +140,9 @@ export default function MethodologyPage() {
               </li>
               <li>
                 <strong className="font-medium">Sample data.</strong> Bundled seed profiles cover about 30 popular funds and are marked &quot;Sample data, captured
-                YYYY-MM-DD&quot;. They go stale as funds rebalance.
+                2026-11-07&quot;. They were compiled by hand from issuer pages and stockanalysis.com, which lists only the top 25 holdings, so sample overlap is a
+                lower bound. Fund holdings are as of late September to October 2026 (each fund&apos;s date differs, Sep 30 to Oct 23, 2026), and prices are the latest close
+                as of the capture date. They go stale as funds rebalance.
               </li>
               <li>
                 <strong className="font-medium">Unofficial and free-tier sources.</strong> Yahoo Finance access is unofficial and can break or be rate-limited. Alpha
@@ -225,7 +228,12 @@ export default function MethodologyPage() {
               </li>
               <li>Stock, ETF and fund quotes, holdings and search: Yahoo Finance, accessed through the unofficial yahoo-finance2 library.</li>
               <li>Fund profiles: Alpha Vantage ETF_PROFILE.</li>
-              <li>Sample data: captured from the providers above and bundled with the app; the starter-pack sample is synthetic and represents no real securities.</li>
+              <li>
+                Sample data: compiled by hand from issuer pages (Vanguard, iShares, SSGA, Schwab, Invesco, Fidelity, Grayscale) and stockanalysis.com, and bundled with the
+                app; it did not come from Yahoo Finance or Alpha Vantage. A few sector breakdowns are from marketxls.com and sample crypto prices from the coingecko.com
+                homepage. Holdings are as of Sep 30 to Oct 23, 2026 depending on the fund; prices are the latest close as of the 2026-11-07 capture date. Source pages per
+                fund are listed in docs/DATA_SOURCES.md. The starter-pack sample is synthetic and represents no real securities.
+              </li>
               <li>Overlap is informational only and is not investment advice.</li>
             </ul>
           </Section>

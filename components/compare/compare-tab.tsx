@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { compareSchedules, lumpSumRatio } from '@/lib/finance';
 import type { Analysis } from '@/lib/hooks/use-portfolio-analysis';
 import { usePortfolio } from '@/lib/portfolio/context';
@@ -12,11 +12,12 @@ import { Button } from '@/components/ui/button';
 import { NumberField } from '@/components/shared/number-field';
 import { Hypothetical } from '@/components/shared/hypothetical';
 import { ChartFrame } from '@/components/shared/chart-frame';
+import { UnknownRatiosWarning } from '@/components/shared/unknown-ratios';
 import { Swatch } from '@/components/concentration/swatch';
 import { CONVENTION } from '@/components/fees/fee-drag';
 import { ScheduleEditor } from './schedule-editor';
 import { SCHEDULE_COLORS, ScheduleChart, ScheduleTable } from './schedule-chart';
-import { linkedCurrent, scheduleRate } from './schedule-math';
+import { ADVISOR_EXAMPLE_ID, advisorExample, resolveLinked, scheduleRate } from './schedule-math';
 
 const RANGE = Array.from({ length: 21 }, (_, i) => Math.round(i * 0.005 * 10000) / 10000);
 
@@ -27,10 +28,29 @@ export function CompareTab({ analysis }: { analysis: Analysis }) {
   const portfolioTotal = analysis.totalValue;
   const P = c.P ?? (portfolioTotal > 0 ? portfolioTotal : SHARE_NOTIONAL);
 
-  const schedules: UiSchedule[] = useMemo(
-    () => c.schedules.map((s) => (s.linked ? linkedCurrent(s, portfolioTotal > 0 ? analysis.fees : null, state.portfolio.advisoryFee, P) : s)),
-    [c.schedules, analysis.fees, state.portfolio.advisoryFee, P, portfolioTotal],
+  const fees = portfolioTotal > 0 ? analysis.fees : null;
+  const advisory = state.portfolio.advisoryFee;
+  const unknownCount = fees?.unknown.length ?? 0;
+  // With no advisory fee on the portfolio, "Current" has no advisor; an extra, clearly labeled
+  // example keeps the advisor case in the comparison. It is not stored until the user edits it.
+  const [exampleDismissed, setExampleDismissed] = useState(false);
+  const currentLinked = c.schedules.some((s) => s.linked && s.id !== ADVISOR_EXAMPLE_ID);
+  const showExample = !advisory && currentLinked && !exampleDismissed && c.schedules.length < 4 && !c.schedules.some((s) => s.id === ADVISOR_EXAMPLE_ID);
+  const fallbackFundRate = c.schedules.find((s) => s.linked && s.id !== ADVISOR_EXAMPLE_ID)?.fundRate ?? 0.002;
+  const stored: UiSchedule[] = useMemo(
+    () => (showExample ? [...c.schedules, advisorExample(fees, fallbackFundRate)] : c.schedules),
+    [showExample, c.schedules, fees, fallbackFundRate],
   );
+
+  const schedules: UiSchedule[] = useMemo(
+    () => stored.map((s) => resolveLinked(s, fees, advisory, P, fallbackFundRate)),
+    [stored, fees, advisory, P, fallbackFundRate],
+  );
+
+  const onSchedulesChange = (next: UiSchedule[]) => {
+    if (showExample && !next.some((s) => s.id === ADVISOR_EXAMPLE_ID)) setExampleDismissed(true);
+    dispatch({ type: 'schedules', schedules: next });
+  };
 
   const out = useMemo(() => {
     try {
@@ -76,7 +96,8 @@ export function CompareTab({ analysis }: { analysis: Analysis }) {
             <NumberField label="Horizon (years)" kind="int" value={c.T} min={1} max={60} onChange={(v) => v !== null && set({ T: v })} />
           </fieldset>
           <p className="text-xs text-muted-foreground">{CONVENTION} Tiered advisory fees are applied to each year&apos;s balance.</p>
-          <ScheduleEditor schedules={c.schedules} resolved={schedules} balance={P} onChange={(s) => dispatch({ type: 'schedules', schedules: s })} />
+          {unknownCount > 0 ? <UnknownRatiosWarning count={unknownCount} /> : null}
+          <ScheduleEditor schedules={stored} resolved={schedules} balance={P} onChange={onSchedulesChange} />
         </CardContent>
       </Card>
 
@@ -121,7 +142,7 @@ export function CompareTab({ analysis }: { analysis: Analysis }) {
                     return (
                       <TR key={s.id}>
                         <TD>
-                          <span className="inline-flex items-center gap-2">
+                          <span className="inline-flex min-w-[11rem] items-center gap-2">
                             <Swatch color={SCHEDULE_COLORS[i]} />
                             {s.name}
                           </span>
@@ -154,3 +175,4 @@ export function CompareTab({ analysis }: { analysis: Analysis }) {
     </div>
   );
 }
+

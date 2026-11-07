@@ -8,6 +8,20 @@ import { usePortfolio } from '@/lib/portfolio/context';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { NumberField } from '@/components/shared/number-field';
+import { floorPct } from '@/lib/format';
+
+/**
+ * Flag messages come from lib/finance with the value rounded to nearest. A lower bound must never
+ * read higher than the data supports, so re-render the "at least X%" figure floored at the same
+ * precision the message used.
+ */
+export function flooredMessage(f: Flag): string {
+  if (!f.lowerBound) return f.message;
+  return f.message.replace(/at least (\d+(?:\.(\d+))?)%/, (_m, _n: string, dec: string | undefined) => {
+    const d = dec?.length ?? 0;
+    return `at least ${Number((floorPct(f.value, d) * 100).toFixed(d))}%`;
+  });
+}
 
 const KIND = {
   'single-name': { label: 'Single name', Icon: Building2 },
@@ -60,7 +74,7 @@ export function FlagsPanel({ flags, thresholds }: { flags: Flag[]; thresholds: F
                       {k.label}
                       {f.lowerBound ? ', lower bound' : ''}
                     </p>
-                    <p className="text-[13px]">{f.message}</p>
+                    <p className="text-[13px]">{flooredMessage(f)}</p>
                   </div>
                 </li>
               );

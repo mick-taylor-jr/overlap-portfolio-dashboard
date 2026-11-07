@@ -28,10 +28,20 @@ export function fmtRate(v: number | null | undefined): string {
   return fmtPct(v, 2);
 }
 
-/** Lower-bound aware percent: "at least 62.0%". */
+/**
+ * Floor a decimal fraction to `digits` decimals of a percent. A lower bound must never be rounded
+ * up (0.4968 must read "≥ 49.6%", not "≥ 49.7%"). The tiny epsilon absorbs float noise such as
+ * 0.29 * 100 = 28.999999999999996.
+ */
+export function floorPct(v: number, digits = 1): number {
+  const f = 10 ** (digits + 2);
+  return Math.floor(v * f + 1e-7) / f;
+}
+
+/** Lower-bound aware percent: "≥ 62.0%". Lower bounds are floored to the displayed precision. */
 export function fmtPctBound(v: number | null | undefined, lowerBound: boolean, digits = 1): string {
-  const s = fmtPct(v, digits);
-  return lowerBound && s !== UNKNOWN ? `≥ ${s}` : s;
+  if (v === null || v === undefined || !Number.isFinite(v)) return UNKNOWN;
+  return lowerBound ? `≥ ${fmtPct(floorPct(v, digits), digits)}` : fmtPct(v, digits);
 }
 
 export function fmtNum(v: number | null | undefined): string {

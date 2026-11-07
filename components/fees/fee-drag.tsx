@@ -13,19 +13,31 @@ import { Hypothetical } from '@/components/shared/hypothetical';
 import { ChartFrame } from '@/components/shared/chart-frame';
 import { SensitivityGrid } from './sensitivity-grid';
 import { GrowthChart, GrowthTable } from './growth-chart';
+import { UnknownRatiosWarning } from '@/components/shared/unknown-ratios';
 
 export const CONVENTION = 'Net return = gross return minus fees, compounded annually, contributions at year end.';
 
 /** Fee drag under the user's own assumptions. The grid is the default view; no single "expected" number. */
-export function FeeDragCalculator({ portfolioTotal, allInRate }: { portfolioTotal: number; allInRate: number | null }) {
+export function FeeDragCalculator({
+  portfolioTotal,
+  allInRate,
+  unknownCount = 0,
+}: {
+  portfolioTotal: number;
+  allInRate: number | null;
+  /** Holdings whose expense ratio is unknown (excluded from allInRate). */
+  unknownCount?: number;
+}) {
   const { state, dispatch } = usePortfolio();
   const a = state.feeAssumptions;
   const set = (patch: Partial<FeeAssumptions>) => dispatch({ type: 'feeAssumptions', patch });
   const P = a.P ?? portfolioTotal;
-  const e = a.e ?? allInRate ?? 0;
+  // Unknown is never 0: with no portfolio rate and no user rate, the user must enter one.
+  const e: number | null = a.e ?? allInRate;
   const [sel, setSel] = useState<{ r: number; T: number }>({ r: a.r, T: a.T });
 
   const computed = useMemo(() => {
+    if (e === null) return { grid: [], single: null, error: null };
     try {
       const grid = sensitivityGrid({ P, C: a.C, e }, SENSITIVITY_RETURNS, SENSITIVITY_HORIZONS);
       const single = feeDrag({ P, C: a.C, e, r: sel.r, T: sel.T });
@@ -46,7 +58,7 @@ export function FeeDragCalculator({ portfolioTotal, allInRate }: { portfolioTota
           <Hypothetical />
         </CardHeader>
         <CardContent className="flex flex-col gap-5">
-          <fieldset className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <fieldset className="grid min-w-0 grid-cols-2 gap-3 sm:grid-cols-4">
             <legend className="sr-only">Fee drag assumptions</legend>
             <div className="flex flex-col gap-1">
               <NumberField label="Starting value" kind="usd" value={P} min={0} onChange={(v) => v !== null && set({ P: v })} />
@@ -67,12 +79,16 @@ export function FeeDragCalculator({ portfolioTotal, allInRate }: { portfolioTota
                 value={e}
                 min={0}
                 max={0.2}
-                onChange={(v) => v !== null && set({ e: v })}
+                allowEmpty={allInRate === null}
+                placeholder={e === null ? 'Enter a rate' : undefined}
+                onChange={(v) => (v !== null ? set({ e: v }) : allInRate === null && set({ e: null }))}
               />
-              {a.e !== null ? (
+              {a.e !== null && allInRate !== null ? (
                 <Button variant="link" size="xs" className="self-start text-[11px]" onClick={() => set({ e: null })}>
                   Use portfolio all-in ({fmtRate(allInRate)})
                 </Button>
+              ) : allInRate === null ? (
+                <span className="text-[11px] text-warning">Portfolio rate unknown: enter one</span>
               ) : (
                 <span className="text-[11px] text-muted-foreground">Portfolio all-in rate</span>
               )}
@@ -81,7 +97,12 @@ export function FeeDragCalculator({ portfolioTotal, allInRate }: { portfolioTota
               <span>Grid spans gross returns of 0 to 9% and horizons of 10 to 30 years. Pick a cell to chart it.</span>
             </div>
           </fieldset>
-          {computed.error ? (
+          {unknownCount > 0 ? <UnknownRatiosWarning count={unknownCount} /> : null}
+          {e === null ? (
+            <p role="status" className="rounded-md border border-dashed border-border px-3 py-4 text-center text-[13px] text-muted-foreground" data-testid="fee-rate-required">
+              The portfolio&apos;s all-in fee is unknown. Enter an annual fee rate above to see what fees cost over time.
+            </p>
+          ) : computed.error ? (
             <p role="alert" className="text-[13px] text-danger">
               These inputs cannot be computed: {computed.error}
             </p>
@@ -97,9 +118,11 @@ export function FeeDragCalculator({ portfolioTotal, allInRate }: { portfolioTota
               }}
             />
           )}
-          <p className="text-xs text-muted-foreground">
-            Dollars lost to fees: ending value at the gross return minus ending value at gross minus {fmtRate(e)}. Hypothetical illustration, not a forecast.
-          </p>
+          {e !== null ? (
+            <p className="text-xs text-muted-foreground">
+              Dollars lost to fees: ending value at the gross return minus ending value at gross minus {fmtRate(e)}. Hypothetical illustration, not a forecast.
+            </p>
+          ) : null}
         </CardContent>
       </Card>
 
@@ -109,7 +132,7 @@ export function FeeDragCalculator({ portfolioTotal, allInRate }: { portfolioTota
           description="Both paths use the same gross return; the gap is fees."
           actions={<Hypothetical />}
           coverage={
-            <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <dl className="grid min-w-0 grid-cols-2 gap-3 sm:grid-cols-4">
               <Fig label="Ending value without fees" value={fmtUsd(computed.single.grossFV)} />
               <Fig label="Ending value with fees" value={fmtUsd(computed.single.netFV)} />
               <Fig label="Lost to fees" value={fmtUsd(computed.single.drag)} />

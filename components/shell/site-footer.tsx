@@ -6,7 +6,7 @@ export function SiteFooter() {
       <div className="mx-auto flex max-w-[1280px] flex-wrap items-center gap-x-5 gap-y-1 px-4 py-4 text-xs text-muted-foreground sm:px-6">
         <span>Informational only, not investment advice.</span>
         <span>
-          Market data from Yahoo Finance (unofficial) and Alpha Vantage; bundled sample data when they are unavailable.{' '}
+          Live market data from Yahoo Finance (unofficial) and Alpha Vantage when configured. Bundled sample data was compiled by hand from issuer pages and stockanalysis.com.{' '}
           <Link href="/methodology#attributions" className="underline underline-offset-2 hover:text-foreground">
             Data credits
           </Link>

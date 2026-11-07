@@ -39,7 +39,7 @@ export function Tabs<T extends string>({
     }
   };
   return (
-    <div role="tablist" aria-label={label} onKeyDown={onKey} className={cn('flex gap-1 overflow-x-auto', className)}>
+    <div role="tablist" aria-label={label} onKeyDown={onKey} className={cn('relative flex gap-1 overflow-x-auto', className)}>
       {items.map((t, i) => {
         const selected = t.value === value;
         return (

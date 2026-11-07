@@ -48,7 +48,8 @@ export function TickerSearch({ onAdd }: { onAdd: (p: Position) => void }) {
   const search = useSearch(picked ? '' : debounced);
   const results = (search.data ?? []).slice(0, 8);
   const typed = q.trim();
-  const fallback = typed && !picked ? guessAssetClass(typed) : null;
+  // Use the live search results so a typed symbol that matches a result gets that result's class.
+  const fallback = typed && !picked ? guessAssetClass(typed, results) : null;
   const showList = open && !picked && typed.length > 0;
 
   const choose = (p: Picked) => {

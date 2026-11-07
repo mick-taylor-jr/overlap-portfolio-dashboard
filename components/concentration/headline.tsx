@@ -31,6 +31,11 @@ export function Headline({ analysis, thresholds }: { analysis: Analysis; thresho
   const largest = resolved[0];
   const pairs = analysis.overlaps.filter((o) => o.overlap > thresholds.pairOverlap);
   const pairsLb = pairs.some((p) => p.lowerBound);
+  const anyPairLb = analysis.overlaps.some((p) => p.a !== p.b && p.lowerBound);
+  const top = analysis.overlaps.filter((p) => p.a !== p.b).reduce<(typeof analysis.overlaps)[number] | null>((m, p) => (m === null || p.overlap > m.overlap ? p : m), null);
+  const pairSub = top
+    ? `${anyPairLb ? 'Partial holdings: true overlap may be higher. ' : ''}Highest: ${top.a}/${top.b} ${fmtPctBound(top.overlap, top.lowerBound, 0)}`
+    : undefined;
   const fundPairs = (analysis.funds.length * (analysis.funds.length - 1)) / 2;
 
   return (
@@ -56,18 +61,25 @@ export function Headline({ analysis, thresholds }: { analysis: Analysis; thresho
           label={`Fund pairs overlapping above ${fmtPct(thresholds.pairOverlap, 0)}`}
           value={fundPairs > 0 ? `${pairs.length}` : 'n/a'}
           note={fundPairs > 0 ? `of ${fundPairs} ${fundPairs === 1 ? 'pair' : 'pairs'}${pairsLb ? ', lower bounds' : ''}` : 'Needs two funds with holdings data'}
+          sub={fundPairs > 0 ? pairSub : undefined}
+          subTone={anyPairLb ? 'warning' : 'muted'}
         />
       </dl>
     </section>
   );
 }
 
-function Stat({ label, value, note }: { label: string; value: string; note?: string }) {
+function Stat({ label, value, note, sub, subTone = 'muted' }: { label: string; value: string; note?: string; sub?: string; subTone?: 'muted' | 'warning' }) {
   return (
-    <div className="flex flex-col gap-1 bg-card px-4 py-3.5">
+    <div className="flex min-w-0 flex-col gap-1 bg-card px-4 py-3.5">
       <dt className="text-xs text-muted-foreground">{label}</dt>
       <dd className="text-[26px] font-semibold leading-none tracking-tight">{value}</dd>
       {note ? <dd className="truncate text-xs text-muted-foreground" title={note}>{note}</dd> : null}
+      {sub ? (
+        <dd className={`text-xs ${subTone === 'warning' ? 'text-warning' : 'text-muted-foreground'}`} data-testid="pairs-sub">
+          {sub}
+        </dd>
+      ) : null}
     </div>
   );
 }

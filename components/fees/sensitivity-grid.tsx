@@ -29,7 +29,7 @@ export function SensitivityGrid({
 }) {
   const at = (r: number, T: number) => cells.find((c) => c.r === r && c.T === T);
   return (
-    <div className="overflow-x-auto">
+    <div className="relative overflow-x-auto">
       <table className="w-full min-w-[480px] border-separate border-spacing-0 text-[13px]" aria-label="Fee drag sensitivity: dollars lost to fees by gross return and horizon" data-testid="sensitivity-grid">
         <thead>
           <tr>

@@ -35,7 +35,7 @@ export function OverlapHeatmap({ cells, funds, threshold }: { cells: OverlapCell
 
   const chart = (
     <div className="flex flex-col gap-3">
-      <div className="overflow-x-auto">
+      <div className="relative overflow-x-auto">
         <table className="border-separate border-spacing-[2px] text-[12px]" aria-label="Fund overlap matrix">
           <thead>
             <tr>
@@ -77,7 +77,7 @@ export function OverlapHeatmap({ cells, funds, threshold }: { cells: OverlapCell
                         outline: over ? '2px solid var(--foreground)' : undefined,
                         outlineOffset: over ? '-2px' : undefined,
                       }}
-                      title={`${a} and ${b}: ${lb ? 'at least ' : ''}${fmtPct(v)} overlap${over ? ' (above your threshold)' : ''}`}
+                      title={`${a} and ${b}: ${fmtPctBound(v, lb).replace('≥ ', 'at least ')} overlap${over ? ' (above your threshold)' : ''}`}
                     >
                       {fmtPctBound(v, lb, 0)}
                     </td>

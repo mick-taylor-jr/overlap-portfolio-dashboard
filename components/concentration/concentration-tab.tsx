@@ -20,7 +20,7 @@ export function ConcentrationTab({ analysis }: { analysis: Analysis }) {
   return (
     <div className="flex flex-col gap-5">
       <Headline analysis={analysis} thresholds={state.thresholds} />
-      <div className="grid items-start gap-5 xl:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
         <ExposureBars
           result={analysis.exposures}
           coverage={analysis.coverage}
@@ -30,7 +30,7 @@ export function ConcentrationTab({ analysis }: { analysis: Analysis }) {
         />
         <FlagsPanel flags={analysis.flags} thresholds={state.thresholds} />
       </div>
-      <div className="grid items-start gap-5 xl:grid-cols-2">
+      <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-2">
         <SectorChart
           result={analysis.sectors}
           reference={analysis.referenceSectors}

@@ -22,7 +22,7 @@ export function FeesTab({ analysis }: { analysis: Analysis }) {
         <Total label="All-in per year" value={fmtUsd(fees.totalAnnualFee)} note={`On ${fmtUsd(analysis.totalValue)}`} />
         <Total label="All-in rate" value={fmtRate(fees.allInRate)} note={fees.unknown.length ? `${fees.unknown.length} unknown excluded` : 'Every ratio known'} />
       </dl>
-      <div className="grid items-start gap-5 xl:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <FeeTable analysis={analysis} fees={fees} />
         <Card>
           <CardHeader>
@@ -36,14 +36,14 @@ export function FeesTab({ analysis }: { analysis: Analysis }) {
           </CardContent>
         </Card>
       </div>
-      <FeeDragCalculator portfolioTotal={analysis.totalValue} allInRate={fees.allInRate} />
+      <FeeDragCalculator portfolioTotal={analysis.totalValue} allInRate={fees.allInRate} unknownCount={fees.unknown.length} />
     </div>
   );
 }
 
 function Total({ label, value, note }: { label: string; value: string; note: string }) {
   return (
-    <div className="flex flex-col gap-1 bg-card px-4 py-3.5">
+    <div className="flex min-w-0 flex-col gap-1 bg-card px-4 py-3.5">
       <dt className="text-xs text-muted-foreground">{label}</dt>
       <dd className="text-[24px] font-semibold leading-none tracking-tight">{value}</dd>
       <dd className="truncate text-xs text-muted-foreground">{note}</dd>

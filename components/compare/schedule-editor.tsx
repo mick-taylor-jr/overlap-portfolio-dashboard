@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { NumberField } from '@/components/shared/number-field';
 import { AdvisoryEditor } from '@/components/fees/advisory-editor';
 import { SCHEDULE_COLORS } from './schedule-chart';
+import { ADVISOR_EXAMPLE_ID } from './schedule-math';
 import { Swatch } from '@/components/concentration/swatch';
 
 export function ScheduleEditor({
@@ -27,9 +28,9 @@ export function ScheduleEditor({
     onChange(schedules.map((s, j) => (j === i ? { ...resolved[i], ...patch, linked: false } : s)));
 
   return (
-    <div className="grid items-start gap-3 md:grid-cols-2">
+    <div className="grid items-start gap-3 md:grid-cols-[repeat(2,minmax(0,1fr))]">
       {resolved.map((s, i) => (
-        <fieldset key={s.id} className="flex flex-col gap-3 rounded-lg border border-border bg-card p-4">
+        <fieldset key={s.id} className="flex min-w-0 flex-col gap-3 rounded-lg border border-border bg-card p-4">
           <legend className="sr-only">Schedule {i + 1}</legend>
           <div className="flex items-start gap-2">
             <span className="mt-3">
@@ -43,7 +44,11 @@ export function ScheduleEditor({
               <X aria-hidden />
             </Button>
           </div>
-          {schedules[i].linked ? (
+          {schedules[i].linked && s.id === ADVISOR_EXAMPLE_ID ? (
+            <Badge className="self-start" title="Not your portfolio: your funds plus a hypothetical flat 1% advisory fee, for comparison.">
+              Example: your funds + a 1% advisor
+            </Badge>
+          ) : schedules[i].linked ? (
             <Badge tone="primary" className="self-start">
               <Link2 className="size-3" aria-hidden /> Following your portfolio
             </Badge>

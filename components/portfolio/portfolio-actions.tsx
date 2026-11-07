@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { Download, FileJson, Link2, RotateCcw, Upload } from 'lucide-react';
 import type { Analysis } from '@/lib/hooks/use-portfolio-analysis';
 import { usePortfolio } from '@/lib/portfolio/context';
-import { encodeShareHash } from '@/lib/portfolio/share';
+import { encodePortfolioShare } from '@/lib/portfolio/share';
 import { downloadText, portfolioToCsv } from '@/lib/portfolio/csv';
 import { portfolioSchema } from '@/lib/portfolio/schema';
 import { Button } from '@/components/ui/button';
@@ -25,10 +25,7 @@ export function PortfolioActions({ analysis }: { analysis: Analysis }) {
 
   const share = async () => {
     const priced = analysis.rows.filter((r) => r.value !== null);
-    const hash = encodeShareHash(
-      state.portfolio.name,
-      priced.map((r) => ({ symbol: r.position.symbol, assetClass: r.position.assetClass, value: r.value ?? 0 })),
-    );
+    const hash = encodePortfolioShare(state.portfolio, analysis.rows);
     if (!hash) return notify('warning', 'Nothing to share yet: no position has a value.');
     const url = `${window.location.origin}${window.location.pathname}${hash}`;
     setShareUrl(url);
@@ -37,10 +34,10 @@ export function PortfolioActions({ analysis }: { analysis: Analysis }) {
       await navigator.clipboard.writeText(url);
       notify(
         'success',
-        `Share link copied. It contains only tickers and weights, no share counts or dollar amounts${skipped ? `; ${skipped} unpriced ${skipped === 1 ? 'position was' : 'positions were'} left out` : ''}.`,
+        `Share link copied. It carries tickers, weights, account labels, rate-only fee settings and synthetic flags, never share counts or dollar amounts${skipped ? `; ${skipped} unpriced ${skipped === 1 ? 'position was' : 'positions were'} left out` : ''}.`,
       );
     } catch {
-      notify('info', 'Copy the share link below. It contains only tickers and weights.');
+      notify('info', 'Copy the share link below. It carries tickers, weights, account labels, rate-only fee settings and synthetic flags, never share counts or dollar amounts.');
     }
   };
 
