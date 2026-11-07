@@ -24,8 +24,15 @@ export function SourceBadge({ p, className = '' }: { p: Provenance | null | unde
   }
   const isSeed = p.source === 'seed';
   const label = LABEL[p.source] ?? p.source;
-  const text = isSeed ? `Sample data, captured ${p.asOf.slice(0, 10)}` : `${label} · ${fmtAsOf(p.asOf)}${p.stale ? ' · cached' : ''}`;
-  const tone = isSeed
+  const isUserish = p.source === 'user' || p.source === 'starter-pack';
+  const text = isSeed
+    ? `Sample data, captured ${p.asOf.slice(0, 10)}`
+    : p.source === 'user'
+      ? 'Your override'
+      : p.source === 'starter-pack'
+        ? 'Starter pack (synthetic)'
+        : `${label} · ${fmtAsOf(p.asOf)}${p.stale ? ' · cached' : ''}`;
+  const tone = isSeed || isUserish
     ? 'border-border bg-muted text-muted-foreground'
     : p.stale
       ? 'border-warning/40 bg-warning-bg text-warning'

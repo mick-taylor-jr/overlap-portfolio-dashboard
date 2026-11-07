@@ -28,14 +28,21 @@
   --success: #1a7f4b;
   --success-bg: #e8f6ee;
 
-  --chart-1: #0072b2;
-  --chart-2: #e69f00;
-  --chart-3: #009e73;
-  --chart-4: #cc79a7;
-  --chart-5: #56b4e9;
-  --chart-6: #d55e00;
-  --chart-7: #8a7f2d;
-  --chart-8: #6b6f7a;
+  /* Validated with the dataviz palette checker against #ffffff (adjacent CVD dE >= 9.1). */
+  --chart-1: #2a78d6;
+  --chart-2: #eb6834;
+  --chart-3: #1baf7a;
+  --chart-4: #eda100;
+  --chart-5: #e87ba4;
+  --chart-6: #008300;
+  --chart-7: #6250d6;
+  --chart-8: #e34948;
+  /* Neutral roles: folded tail ("Other") and unresolved / not disclosed weight. */
+  --chart-other: #a3a7b0;
+  --chart-unresolved: #c9ccd2;
+  --chart-grid: #ececea;
+  --heat-ink-light: #16181d;
+  --heat-ink-dark: #ffffff;
 
   --heat-0: #f4f6fb;
   --heat-1: #d6e0f5;
@@ -66,14 +73,20 @@
   --success: #5fd29a;
   --success-bg: #11261b;
 
-  --chart-1: #3d9be0;
-  --chart-2: #f0b43c;
-  --chart-3: #2fc095;
-  --chart-4: #dd8fbb;
-  --chart-5: #7cc6f0;
-  --chart-6: #ef7a2e;
-  --chart-7: #b7aa52;
-  --chart-8: #9aa1ad;
+  /* Same hues stepped for the dark surface; validated against #15181e. */
+  --chart-1: #3987e5;
+  --chart-2: #d95926;
+  --chart-3: #199e70;
+  --chart-4: #c98500;
+  --chart-5: #d55181;
+  --chart-6: #008300;
+  --chart-7: #9085e9;
+  --chart-8: #e66767;
+  --chart-other: #6b717d;
+  --chart-unresolved: #3a404b;
+  --chart-grid: #232831;
+  --heat-ink-light: #e7e9ee;
+  --heat-ink-dark: #0e1014;
 
   --heat-0: #171b24;
   --heat-1: #1d2b4a;
@@ -111,6 +124,9 @@
   --color-chart-6: var(--chart-6);
   --color-chart-7: var(--chart-7);
   --color-chart-8: var(--chart-8);
+  --color-chart-other: var(--chart-other);
+  --color-chart-unresolved: var(--chart-unresolved);
+  --color-chart-grid: var(--chart-grid);
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
@@ -125,4 +141,60 @@ body {
 .num {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
+}
+
+:root {
+  color-scheme: light;
+}
+.dark {
+  color-scheme: dark;
+}
+
+/* Unresolved / not disclosed weight: neutral fill with a 45deg hatch so it never reads as a series. */
+.fill-unresolved {
+  background-color: var(--chart-unresolved);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent 0 3px,
+    color-mix(in srgb, var(--muted-foreground) 35%, transparent) 3px 4px
+  );
+}
+
+/* Visible keyboard focus everywhere; quiet for pointer users. */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+.skeleton {
+  background: var(--muted);
+  border-radius: 4px;
+  animation: skeleton-pulse 1.6s ease-in-out infinite;
+}
+
+/* Recharts: keep chart chrome recessive and on tokens. */
+.recharts-cartesian-grid line {
+  stroke: var(--chart-grid);
+}
+.recharts-text {
+  fill: var(--muted-foreground);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.recharts-surface:focus {
+  outline: none;
 }
