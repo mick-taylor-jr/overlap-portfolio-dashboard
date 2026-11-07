@@ -230,3 +230,22 @@ test checks per-account totals of `market_value_usd` against the parsed position
 | SPY | 503 | 99.9% | SSGA `holdings-daily-us-en-spy.xlsx`, linked from the SPY product page on ssga.com | 2026-11-05 |
 
 Both files were read in a browser and converted with `scripts/seed/apply-full-holdings.mjs`. The raw extracts are in `scripts/seed/full-holdings/`. Equity rows only; cash and derivatives (under 0.1%) stay as undisclosed weight. Each profile's `holdingsSource` field records where its holdings came from. Result: SPY/IVV overlap = 99.3%, an exact figure rather than a lower bound. Vanguard (VOO, VTI) and Invesco (QQQ) do not link a holdings file from their product pages, so those funds keep their top-25 lists, and their overlaps are still shown as lower bounds.
+
+## Alpha Vantage ETF_PROFILE: verified live (2026-11-07)
+
+Checked against the production deployment with a real free-tier key:
+
+| Fund | Holdings returned | Coverage | Notes |
+|---|---|---|---|
+| XLE | 21 | 99.7% | full list |
+| QQQ | 100 | 99.5% | full list |
+| QQQM | 101 | 99.7% | full list |
+| VOO | 497 | ~100% | near-full; weights given to 4 decimals, so the smallest names round |
+| SCHX | 699 | 83.4% | many tiny weights round to 0.0000 |
+| VTI, VGT, ITOT | n/a | n/a | "endpoint requires a premium plan" on the free tier |
+
+- **Holdings are not truncated to a top 10.** For most funds the free tier returns the full list. That makes Alpha Vantage the best source for overlap math, ahead of Yahoo's top 10.
+- **Weights** are decimal fractions as strings, e.g. `"0.0749"`, to 4 decimals.
+- **Expense ratio** comes back as a decimal string (`"0.0003"`).
+- **Free-tier limits seen live:** 25 requests per day and a per-minute limit. Calls that fail (premium-only funds, the per-minute limit) still count against the app's daily budget.
+- **Approach:** the daily cron (`/api/cron/warm`, also callable with `?symbols=`) refreshes profiles from Alpha Vantage within budget, and profiles are cached for 7 days in Upstash. When the bundled sample holdings cover more than the live profile does, the app serves the sample holdings, labeled `yahoo+seed`.
