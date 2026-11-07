@@ -157,3 +157,17 @@ describe('Upstash env detection', () => {
     expect(JSON.stringify(h)).not.toContain('example.upstash.io');
   });
 });
+
+import { sanitizeProfileWeights as _spw } from '@/lib/providers/chain';
+import { describe as _d3, it as _it3, expect as _e3 } from 'vitest';
+_d3('sanitizeProfileWeights', () => {
+  _it3('cleans a cached profile with negative cash so look-through math can run', () => {
+    const p = _spw({
+      symbol: 'VOO', name: 'VOO', expenseRatio: 0.0003, holdings: [{ symbol: 'AAPL', name: 'Apple', weight: 0.07 }],
+      sectorWeights: { 'Information Technology': 0.35 }, assetAllocation: { stock: 1.0012, cash: -0.0012 },
+      holdingsCoverage: 0.07, source: 'yahoo', asOf: '2026-11-07T15:00:00Z', stale: false,
+    });
+    _e3(p.assetAllocation?.cash).toBe(0);
+    _e3((p.assetAllocation?.stock ?? 0)).toBeLessThanOrEqual(1);
+  });
+});

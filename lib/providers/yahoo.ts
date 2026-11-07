@@ -135,7 +135,7 @@ export function parseYahooFundProfile(symbol: string, raw: unknown, nowIso: stri
   for (const obj of topHoldings?.sectorWeightings ?? []) {
     for (const [k, v] of Object.entries(obj)) {
       const n = toNumber(v);
-      if (n !== null) sectorEntries.push([k, n]);
+      if (n !== null) sectorEntries.push([k, Math.max(0, n)]);
     }
   }
 
@@ -150,8 +150,13 @@ export function parseYahooFundProfile(symbol: string, raw: unknown, nowIso: stri
   ];
   for (const [k, v] of allocPairs) {
     const n = toNumber(v);
-    if (n !== null) alloc[k] = n;
+    // Funds sometimes report a small negative cash position (pending settlements, e.g. VOO cash
+    // -0.12%). Look-through math needs non-negative weights, so negatives are floored at 0; the
+    // remaining weights are then rescaled below so they still sum to at most 1.
+    if (n !== null) alloc[k] = Math.max(0, n);
   }
+  const allocSum = Object.values(alloc).reduce((s, x) => s + x, 0);
+  if (allocSum > 1) for (const k of Object.keys(alloc)) alloc[k] = alloc[k] / allocSum;
 
   const fees = fundProfile?.feesExpensesInvestment;
   const expenseRatio = parseExpenseRatio(fees?.annualReportExpenseRatio) ?? parseExpenseRatio(fees?.netExpRatio);

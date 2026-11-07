@@ -76,3 +76,22 @@ describe('YahooProvider with a mocked client', () => {
     await expect(y.search('vang')).rejects.toMatchObject({ kind: 'rate_limited' });
   });
 });
+
+import { parseYahooFundProfile as _pyfp } from '@/lib/providers/yahoo';
+import { describe as _d2, it as _it2, expect as _e2 } from 'vitest';
+_d2('yahoo fund profile: negative allocation from live data', () => {
+  _it2('floors a negative cash position at 0 (seen live for VOO: cash -0.0012)', () => {
+    const p = _pyfp(
+      'VOO',
+      {
+        price: { longName: 'Vanguard S&P 500 ETF' },
+        topHoldings: { stockPosition: 1.0012, cashPosition: -0.0012, bondPosition: 0, otherPosition: 0, holdings: [], sectorWeightings: [] },
+      },
+      '2026-11-07T15:00:00.000Z',
+    );
+    const a = p.assetAllocation ?? {};
+    _e2(Object.values(a).every((x) => x >= 0)).toBe(true);
+    _e2(Object.values(a).reduce((s, x) => s + x, 0)).toBeLessThanOrEqual(1 + 1e-9);
+    _e2(a.cash).toBe(0);
+  });
+});

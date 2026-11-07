@@ -92,6 +92,28 @@ export const SEED_HOLDINGS_MARGIN = 0.05;
  * Merge rule: seed holdings win only when seed coverage > live coverage + SEED_HOLDINGS_MARGIN.
  * Holdings/coverage/count come from seed; name, fees, sectors, allocation and provenance from live.
  */
+/**
+ * Serve-time guard for weights that providers occasionally report out of range (e.g. a negative
+ * cash position). Floors allocation/sector weights at 0 and rescales a set that sums above 1.
+ * Applied at serve time too, so profiles cached before this guard existed are still clean.
+ */
+export function sanitizeProfileWeights(p: FundProfile): FundProfile {
+  const fix = (r: Record<string, number> | undefined): Record<string, number> | undefined => {
+    if (!r) return r;
+    const out: Record<string, number> = {};
+    for (const [k, v] of Object.entries(r)) out[k] = Number.isFinite(v) ? Math.max(0, v) : 0;
+    const sum = Object.values(out).reduce((a, b) => a + b, 0);
+    if (sum > 1) for (const k of Object.keys(out)) out[k] = out[k] / sum;
+    return out;
+  };
+  return {
+    ...p,
+    assetAllocation: fix(p.assetAllocation),
+    sectorWeights: fix(p.sectorWeights) ?? {},
+    holdings: p.holdings.filter((h) => Number.isFinite(h.weight) && h.weight > 0),
+  };
+}
+
 export function mergeProfileHoldings(live: FundProfile, seed: FundProfile): FundProfile {
   if (!(seed.holdingsCoverage > live.holdingsCoverage + SEED_HOLDINGS_MARGIN)) return live;
   return {
@@ -320,9 +342,10 @@ export class ProviderChain {
    * Applied at serve time, so the cache keeps the raw provider profile.
    */
   private withSeedHoldings(symbol: string, live: FundProfile): FundProfile {
-    if (live.holdingsSource || live.source === 'seed') return live;
+    const clean = sanitizeProfileWeights(live);
+    if (clean.holdingsSource || clean.source === 'seed') return clean;
     const seed = this.deps.seed.profile(symbol);
-    return seed ? mergeProfileHoldings(live, seed) : live;
+    return seed ? mergeProfileHoldings(clean, seed) : clean;
   }
 
   async getFundProfiles(symbols: string[], opts: CallOptions = {}): Promise<BatchResult<FundProfile>> {
