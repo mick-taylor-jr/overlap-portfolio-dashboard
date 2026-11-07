@@ -221,3 +221,12 @@ as_of 2026-09-30). Bundled for the client as a string in `lib/samples/starter-pa
 position with `feeOverrides.expenseRatio = annual_fee_bps / 10000`, rejects non-USD and
 blank/invalid/non-positive amounts with explicit per-line errors (never 0), and the reconciliation
 test checks per-account totals of `market_value_usd` against the parsed positions.
+
+## Full holdings (added 2026-11-07)
+
+| Fund | Holdings | Coverage | Source | As of |
+|---|---|---|---|---|
+| IVV | 503 | 99.9% | iShares `latest-holdings.csv`, linked from the IVV product page on ishares.com | 2026-11-05 |
+| SPY | 503 | 99.9% | SSGA `holdings-daily-us-en-spy.xlsx`, linked from the SPY product page on ssga.com | 2026-11-05 |
+
+Both files were read in a browser and converted with `scripts/seed/apply-full-holdings.mjs`. The raw extracts are in `scripts/seed/full-holdings/`. Equity rows only; cash and derivatives (under 0.1%) stay as undisclosed weight. Each profile's `holdingsSource` field records where its holdings came from. Result: SPY/IVV overlap = 99.3%, an exact figure rather than a lower bound. Vanguard (VOO, VTI) and Invesco (QQQ) do not link a holdings file from their product pages, so those funds keep their top-25 lists, and their overlaps are still shown as lower bounds.
