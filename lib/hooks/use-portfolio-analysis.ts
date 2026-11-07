@@ -19,6 +19,7 @@ import {
 import type { AssetClass, FundProfile, Position, Provenance, Quote } from '@/lib/types';
 import type { CryptoPrice } from '@/lib/providers/types';
 import { usePortfolio } from '@/lib/portfolio/context';
+import { needsFundProfile } from '@/lib/portfolio/classify';
 import { useCryptoPrices, useFundProfiles, useQuotes } from './use-market-data';
 import { issuerKeyOf, NON_EQUITY_SECTOR, toGicsSector } from './normalize-bridge';
 
@@ -28,6 +29,13 @@ export type RowStatus = 'ok' | 'loading' | 'unpriced';
 
 export interface PositionRow {
   position: Position;
+  /**
+   * Asset class used for analysis. Equals position.assetClass, except an 'equity' for which the
+   * server returned a fund profile (an ETF/fund the classifier did not recognize) becomes 'fund'.
+   */
+  assetClass: AssetClass;
+  /** true when assetClass was upgraded from 'equity' to 'fund' because a fund profile exists. */
+  classInferred: boolean;
   name: string;
   /** Price per unit (USD) when known. */
   price: number | null;
@@ -36,7 +44,10 @@ export interface PositionRow {
   /** Share of total valued portfolio. */
   weight: number | null;
   expenseRatio: number | null;
-  /** Where the expense ratio came from: profile provenance, 'user' override, or 'direct' (no fund fee). */
+  /**
+   * Where the expense ratio came from: profile provenance, 'user' override, or 'direct' (no fund fee).
+   * null (with expenseRatio null) = unknown, e.g. an equity whose fund-profile check has not answered.
+   */
   expenseSource: Provenance | 'direct' | null;
   profile: FundProfile | null;
   status: RowStatus;
@@ -136,7 +147,9 @@ export function usePortfolioAnalysis(): Analysis {
 
   const priceable = positions.filter((p) => !p.synthetic && (p.assetClass === 'equity' || p.assetClass === 'fund'));
   const quoteSymbols = priceable.map((p) => p.symbol);
-  const fundSymbols = positions.filter((p) => !p.synthetic && p.assetClass === 'fund').map((p) => p.symbol);
+  // Equities are probed too: an ETF the classifier did not recognize lands in 'equity' by default,
+  // and a null profile is what tells us it really is a direct stock (see buildRow).
+  const fundSymbols = positions.filter(needsFundProfile).map((p) => p.symbol);
   const cryptoIds = positions.filter((p) => !p.synthetic && p.assetClass === 'crypto').map((p) => p.symbol);
 
   const quotes = useQuotes(quoteSymbols);
@@ -155,7 +168,7 @@ export function usePortfolioAnalysis(): Analysis {
     // Merge by security for look-through.
     const byKey = new Map<string, PositionRow[]>();
     for (const r of rows) {
-      const k = `${r.position.assetClass}:${r.position.symbol}`;
+      const k = `${r.assetClass}:${r.position.symbol}`;
       byKey.set(k, [...(byKey.get(k) ?? []), r]);
     }
     const components: Component[] = [...byKey.entries()].map(([key, rs]) => buildComponent(key, rs));
@@ -235,7 +248,8 @@ export function usePortfolioAnalysis(): Analysis {
   }, [positions, advisoryFee, quotes, profiles, crypto, reference, groupByIssuer, thresholds]);
 }
 
-function buildRow(
+/** Exported for unit tests. */
+export function buildRow(
   p: Position,
   quotes: Record<string, Quote | null>,
   profiles: Record<string, FundProfile | null>,
@@ -249,6 +263,9 @@ function buildRow(
   let name = p.name ?? p.symbol;
   let profile: FundProfile | null = null;
   let loading = false;
+  let assetClass: AssetClass = p.assetClass;
+  /** For equities: has /api/fund-profile answered (profile or explicit null)? */
+  let profileAnswered = true;
 
   if (p.synthetic) {
     priceSource = { source: 'starter-pack', asOf: '', stale: false };
@@ -273,6 +290,14 @@ function buildRow(
       profile = profiles[p.symbol] ?? null;
       if (profile) name = p.name ?? (q?.name || profile.name);
       if (!profile && !(p.symbol in profiles) && profilesLoading) loading = true;
+    } else if (p.assetClass === 'equity') {
+      // Unrecognized ETFs default to 'equity'; a fund profile proves otherwise.
+      profile = profiles[p.symbol] ?? null;
+      profileAnswered = p.symbol in profiles;
+      if (profile) {
+        assetClass = 'fund';
+        name = p.name ?? (q?.name || profile.name);
+      }
     }
   }
 
@@ -284,9 +309,13 @@ function buildRow(
   if (override !== undefined) {
     expenseRatio = override;
     expenseSource = USER_PROV;
-  } else if (p.assetClass === 'fund') {
+  } else if (assetClass === 'fund') {
     expenseRatio = profile?.expenseRatio ?? null;
     expenseSource = profile;
+  } else if (assetClass === 'equity' && !p.synthetic && !profileAnswered) {
+    // Not yet known whether this is a stock or a fund: unknown, never 0.
+    expenseRatio = null;
+    expenseSource = null;
   } else {
     // Direct stocks, crypto and cash carry no fund expense ratio.
     expenseRatio = 0;
@@ -295,12 +324,14 @@ function buildRow(
 
   const status: RowStatus = value !== null ? 'ok' : loading ? 'loading' : 'unpriced';
   const note = status === 'unpriced' ? 'No price available; enter a dollar value to include this position.' : undefined;
-  return { position: p, name, price, priceSource, value, weight: null, expenseRatio, expenseSource, profile, status, note };
+  return { position: p, assetClass, classInferred: assetClass !== p.assetClass, name, price, priceSource, value, weight: null, expenseRatio, expenseSource, profile, status, note };
 }
 
-function buildComponent(key: string, rs: PositionRow[]): Component {
+/** Exported for unit tests. */
+export function buildComponent(key: string, rs: PositionRow[]): Component {
   const first = rs[0];
   const p = first.position;
+  const assetClass = first.assetClass;
   const anyNull = rs.some((r) => r.value === null);
   const value = anyNull ? null : rs.reduce((s, r) => s + (r.value ?? 0), 0);
   // Value-weighted expense ratio across accounts (accounts may carry different overrides).
@@ -313,7 +344,7 @@ function buildComponent(key: string, rs: PositionRow[]): Component {
   const accounts = rs.filter((r) => r.position.account).map((r) => ({ account: r.position.account ?? '', value: r.value }));
 
   let input: LookThroughInput;
-  if (p.assetClass === 'fund' && !p.synthetic) {
+  if (assetClass === 'fund' && !p.synthetic) {
     const prof = first.profile;
     const holdings = prof?.holdings ?? [];
     const sectorWeights = prof && Object.keys(prof.sectorWeights).length > 0 ? prof.sectorWeights : undefined;
@@ -350,7 +381,7 @@ function buildComponent(key: string, rs: PositionRow[]): Component {
   return {
     key,
     symbol: p.symbol,
-    assetClass: p.assetClass,
+    assetClass,
     name: first.name,
     value,
     expenseRatio,

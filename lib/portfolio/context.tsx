@@ -54,7 +54,7 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'replace', portfolio: res.portfolio });
     notify(
       'info',
-      `Loaded a shared portfolio. Share links carry only tickers and weights, so positions are scaled to a ${fmtUsd(SHARE_NOTIONAL)} notional. Edit amounts to match your own holdings.`,
+      `Loaded a shared portfolio. Share links carry tickers, weights and fee settings but no share counts or dollar amounts, so positions are scaled to a ${fmtUsd(SHARE_NOTIONAL)} notional. Edit amounts to match your own holdings.`,
     );
     return true;
   }, [notify]);
