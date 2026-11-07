@@ -14,6 +14,9 @@ Each company's exposure is the sum of what every fund contributes to it, so the 
 
 If either fund's holdings are only partly known, the true overlap can only be higher, so it is shown as "≥ X%".
 
+### Holdings dates differ by source
+Funds that track the same index can show less than full overlap when their holdings snapshots come from different dates. Example: SPY and IVV issuer files from Nov 5, 2026 overlap 99.2%, while VOO from Alpha Vantage overlaps them about 92%. Alpha Vantage doesn't say what date its holdings are from, and its VOO weights look weeks older (NVIDIA 8.4% vs 6.9%). Badges show each holdings source, and Alpha Vantage holdings read "holdings date not stated".
+
 ## Concentration
 - **HHI** = `Σ (e_i / c)²` over resolved exposures, where `c` is the resolved share of the portfolio. With full coverage this is the textbook `Σ e_i²`. Rescaling stops undisclosed holdings from making a portfolio look more diversified. **Effective number of holdings** = `1 / HHI`: the number of equal-sized positions with the same concentration, among the holdings we can see.
 - **Top-1 / Top-5 / Top-10 share** of the portfolio.

@@ -122,6 +122,9 @@ export function parseAlphaVantageEtfProfile(symbol: string, body: unknown, nowIs
       assetAllocation,
       holdingsCoverage: coverage,
       totalHoldingsCount: truncated ? null : holdings.length,
+      // ETF_PROFILE does not say what date its holdings are from (seen live: VOO weights weeks older
+      // than the issuer's file). asOf below is when WE fetched it, so say that explicitly.
+      holdingsSource: { source: 'alphavantage', asOf: 'not stated by provider' },
       source: 'alphavantage',
       asOf: nowIso,
       stale: false,

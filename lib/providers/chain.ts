@@ -343,7 +343,7 @@ export class ProviderChain {
    */
   private withSeedHoldings(symbol: string, live: FundProfile): FundProfile {
     const clean = sanitizeProfileWeights(live);
-    if (clean.holdingsSource || clean.source === 'seed') return clean;
+    if (clean.source === 'seed' || clean.source.endsWith('+seed')) return clean;
     const seed = this.deps.seed.profile(symbol);
     return seed ? mergeProfileHoldings(clean, seed) : clean;
   }

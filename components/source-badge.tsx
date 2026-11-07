@@ -41,7 +41,12 @@ export function SourceBadge({ p, className = '', holdings }: { p: Provenance | n
   const liveSource = isMerged ? p.source.slice(0, -'+seed'.length) : p.source;
   const label = LABEL[liveSource] ?? liveSource;
   const holdingsDate = (holdingsSource?.asOf ?? '').slice(0, 10);
-  const holdingsNote = isMerged ? ` · holdings: sample data${holdingsDate ? ` ${holdingsDate}` : ''}` : '';
+  const holdingsUndated = holdingsSource?.asOf === 'not stated by provider';
+  const holdingsNote = isMerged
+    ? ` · holdings: sample data${holdingsDate ? ` ${holdingsDate}` : ''}`
+    : holdingsUndated
+      ? ' · holdings date not stated'
+      : '';
   const isUserish = p.source === 'user' || p.source === 'starter-pack';
   const text = isSeed
     ? `Sample data, captured ${p.asOf.slice(0, 10)}`
