@@ -48,7 +48,7 @@ export interface LookThroughResult {
 
 export interface ConcentrationMetrics {
   hhi: number; // sum of e_i^2 over RESOLVED exposures
-  effectiveN: number; // 1 / hhi (Infinity-safe: null when hhi === 0)
+  effectiveN: number; // 1 / hhi; 0 when there are no resolved exposures (hhi === 0)
   top1: number;
   top5: number;
   top10: number;
