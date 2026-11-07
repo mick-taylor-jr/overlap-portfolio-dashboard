@@ -60,6 +60,7 @@ export const stateSchema = z.object({
     e: rate.nullable(),
     r: z.number().min(-0.5).max(0.5),
     T: z.number().int().min(1).max(60),
+    includeOneTime: z.boolean().optional(),
   }),
   compare: z.object({
     P: z.number().min(0).nullable(),

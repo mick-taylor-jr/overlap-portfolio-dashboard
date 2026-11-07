@@ -1,4 +1,4 @@
-import type { AdvisoryFee, FlagThresholds, Portfolio, Position } from '@/lib/types';
+import type { AdvisoryFee, FeeOverrides, FlagThresholds, Portfolio, Position } from '@/lib/types';
 import type { CompareSettings, FeeAssumptions, PortfolioState, UiSchedule } from './state';
 import { initialState } from './state';
 
@@ -6,6 +6,8 @@ export type PortfolioAction =
   | { type: 'hydrate'; state: PortfolioState }
   | { type: 'add'; positions: Position[] }
   | { type: 'update'; id: string; patch: Partial<Position> }
+  /** Merge fee overrides on one position; `undefined` deletes a key, an empty result drops feeOverrides. */
+  | { type: 'feeOverrides'; id: string; patch: Partial<Record<keyof FeeOverrides, number | undefined>> }
   | { type: 'remove'; id: string }
   | { type: 'replace'; portfolio: Portfolio }
   | { type: 'rename'; name: string }
@@ -29,6 +31,18 @@ export function reducer(state: PortfolioState, action: PortfolioAction): Portfol
         portfolio: {
           ...state.portfolio,
           positions: state.portfolio.positions.map((p) => (p.id === action.id ? stripUndefined({ ...p, ...action.patch }) : p)),
+        },
+      };
+    case 'feeOverrides':
+      return {
+        ...state,
+        portfolio: {
+          ...state.portfolio,
+          positions: state.portfolio.positions.map((p) => {
+            if (p.id !== action.id) return p;
+            const fo = stripUndefined({ ...(p.feeOverrides ?? {}), ...action.patch } as FeeOverrides);
+            return stripUndefined({ ...p, feeOverrides: Object.keys(fo).length ? fo : undefined });
+          }),
         },
       };
     case 'remove':

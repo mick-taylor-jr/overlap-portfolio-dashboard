@@ -12,6 +12,9 @@ import { overlap, overlapMatrix } from './overlap';
 import { flags } from './flags';
 import { portfolioFees } from './fees';
 import { compareSchedules } from './schedules';
+import { oneTimeCosts } from './one-time';
+
+export type { OneTimeCostInput, OneTimeCostRow, OneTimeCosts } from './one-time';
 
 export * from './contracts';
 export {
@@ -32,6 +35,7 @@ export {
   flags,
   portfolioFees,
   compareSchedules,
+  oneTimeCosts,
 };
 
 export const finance: FinanceApi = {

@@ -1,5 +1,7 @@
 'use client';
 
+import { useMemo } from 'react';
+import { oneTimeCosts, type OneTimeCosts } from '@/lib/finance';
 import type { Analysis } from '@/lib/hooks/use-portfolio-analysis';
 import { usePortfolio } from '@/lib/portfolio/context';
 import { fmtRate, fmtUsd } from '@/lib/format';
@@ -12,6 +14,22 @@ import { FeeDragCalculator } from './fee-drag';
 export function FeesTab({ analysis }: { analysis: Analysis }) {
   const { state, dispatch } = usePortfolio();
   const fees = analysis.fees;
+  const oneTime = useMemo<OneTimeCosts | null>(() => {
+    try {
+      return oneTimeCosts(
+        analysis.rows.map((r) => ({
+          id: r.position.id,
+          symbol: r.position.symbol,
+          value: r.value,
+          frontLoad: r.position.feeOverrides?.frontLoad,
+          backLoad: r.position.feeOverrides?.backLoad,
+          transactionCost: r.position.feeOverrides?.transactionCost,
+        })),
+      );
+    } catch {
+      return null;
+    }
+  }, [analysis.rows]);
   if (!fees) return <AnalysisPending analysis={analysis} />;
 
   return (
@@ -23,7 +41,7 @@ export function FeesTab({ analysis }: { analysis: Analysis }) {
         <Total label="All-in rate" value={fmtRate(fees.allInRate)} note={fees.unknown.length ? `${fees.unknown.length} unknown excluded` : 'Every ratio known'} />
       </dl>
       <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
-        <FeeTable analysis={analysis} fees={fees} />
+        <FeeTable analysis={analysis} fees={fees} oneTime={oneTime} />
         <Card>
           <CardHeader>
             <div>
@@ -36,7 +54,7 @@ export function FeesTab({ analysis }: { analysis: Analysis }) {
           </CardContent>
         </Card>
       </div>
-      <FeeDragCalculator portfolioTotal={analysis.totalValue} allInRate={fees.allInRate} unknownCount={fees.unknown.length} />
+      <FeeDragCalculator portfolioTotal={analysis.totalValue} allInRate={fees.allInRate} unknownCount={fees.unknown.length} oneTime={oneTime} />
     </div>
   );
 }

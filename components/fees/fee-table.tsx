@@ -3,16 +3,17 @@
 import { useState } from 'react';
 import { ArrowDown, ArrowUp, AlertTriangle } from 'lucide-react';
 import type { Analysis } from '@/lib/hooks/use-portfolio-analysis';
-import type { PortfolioFees } from '@/lib/finance';
+import type { OneTimeCosts, PortfolioFees } from '@/lib/finance';
 import { fmtPct, fmtRate, fmtUsd } from '@/lib/format';
 import { SourceBadge } from '@/components/source-badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TBody, TD, TFoot, TH, THead, TR } from '@/components/ui/table';
 import { Sym } from '@/components/shared/symbol';
+import { OneTimeCostsButton, OneTimeTotal } from './one-time-costs';
 
 type SortKey = 'symbol' | 'value' | 'expenseRatio' | 'annualFee';
 
-export function FeeTable({ analysis, fees }: { analysis: Analysis; fees: PortfolioFees }) {
+export function FeeTable({ analysis, fees, oneTime }: { analysis: Analysis; fees: PortfolioFees; oneTime: OneTimeCosts | null }) {
   const [sort, setSort] = useState<{ key: SortKey; dir: 1 | -1 }>({ key: 'annualFee', dir: -1 });
   const byComp = new Map(analysis.components.map((c) => [c.symbol, c]));
   const rows = [...fees.rows].sort((a, b) => {
@@ -77,11 +78,15 @@ export function FeeTable({ analysis, fees }: { analysis: Analysis; fees: Portfol
               const c = byComp.get(r.symbol);
               const row = analysis.rows.find((x) => x.position.symbol === r.symbol);
               const src = row?.expenseSource;
+              const positions = analysis.rows.filter((x) => x.position.symbol === r.symbol);
+              const ids = new Set(positions.map((x) => x.position.id));
+              const costs = oneTime ? oneTime.rows.filter((x) => ids.has(x.id)) : [];
               return (
                 <TR key={r.symbol}>
-                  <TD>
+                  <TD className="whitespace-nowrap">
                     <Sym>{r.symbol}</Sym>
                     {c && c.name !== c.symbol ? <span className="ml-2 hidden text-xs text-muted-foreground sm:inline">{c.name}</span> : null}
+                    {oneTime && positions.length > 0 ? <OneTimeCostsButton symbol={r.symbol} positions={positions} costs={costs} /> : null}
                   </TD>
                   <TD numeric>{fmtUsd(r.value)}</TD>
                   <TD numeric className={r.expenseRatio === null ? 'text-warning' : undefined}>
@@ -131,6 +136,7 @@ export function FeeTable({ analysis, fees }: { analysis: Analysis; fees: Portfol
             </TR>
           </TFoot>
         </Table>
+        {oneTime ? <OneTimeTotal costs={oneTime} /> : null}
       </CardContent>
     </Card>
   );

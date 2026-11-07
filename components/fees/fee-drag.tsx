@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { feeDrag, sensitivityGrid } from '@/lib/finance';
+import { feeDrag, sensitivityGrid, type OneTimeCosts } from '@/lib/finance';
 import { fmtPct, fmtRate, fmtUsd } from '@/lib/format';
 import type { FeeAssumptions } from '@/lib/portfolio/state';
 import { SENSITIVITY_HORIZONS, SENSITIVITY_RETURNS } from '@/lib/portfolio/state';
@@ -16,22 +16,30 @@ import { GrowthChart, GrowthTable } from './growth-chart';
 import { UnknownRatiosWarning } from '@/components/shared/unknown-ratios';
 
 export const CONVENTION = 'Net return = gross return minus fees, compounded annually, contributions at year end.';
+export const ONE_TIME_CONVENTION =
+  'One-time costs are paid up front: both paths start from the starting value minus one-time costs (floored at $0), and "lost to fees" counts annual fees only.';
 
 /** Fee drag under the user's own assumptions. The grid is the default view; no single "expected" number. */
 export function FeeDragCalculator({
   portfolioTotal,
   allInRate,
   unknownCount = 0,
+  oneTime = null,
 }: {
   portfolioTotal: number;
   allInRate: number | null;
   /** Holdings whose expense ratio is unknown (excluded from allInRate). */
   unknownCount?: number;
+  /** One-time costs; optionally subtracted from P. */
+  oneTime?: OneTimeCosts | null;
 }) {
   const { state, dispatch } = usePortfolio();
   const a = state.feeAssumptions;
   const set = (patch: Partial<FeeAssumptions>) => dispatch({ type: 'feeAssumptions', patch });
-  const P = a.P ?? portfolioTotal;
+  const startValue = a.P ?? portfolioTotal;
+  const includeOneTime = !!a.includeOneTime && oneTime !== null;
+  const oneTimeTotal = oneTime?.total ?? 0;
+  const P = includeOneTime ? Math.max(0, startValue - oneTimeTotal) : startValue;
   // Unknown is never 0: with no portfolio rate and no user rate, the user must enter one.
   const e: number | null = a.e ?? allInRate;
   const [sel, setSel] = useState<{ r: number; T: number }>({ r: a.r, T: a.T });
@@ -61,7 +69,7 @@ export function FeeDragCalculator({
           <fieldset className="grid min-w-0 grid-cols-2 gap-3 sm:grid-cols-4">
             <legend className="sr-only">Fee drag assumptions</legend>
             <div className="flex flex-col gap-1">
-              <NumberField label="Starting value" kind="usd" value={P} min={0} onChange={(v) => v !== null && set({ P: v })} />
+              <NumberField label="Starting value" kind="usd" value={startValue} min={0} onChange={(v) => v !== null && set({ P: v })} />
               {a.P !== null ? (
                 <Button variant="link" size="xs" className="self-start text-[11px]" onClick={() => set({ P: null })}>
                   Use portfolio total ({fmtUsd(portfolioTotal)})
@@ -97,6 +105,26 @@ export function FeeDragCalculator({
               <span>Grid spans gross returns of 0 to 9% and horizons of 10 to 30 years. Pick a cell to chart it.</span>
             </div>
           </fieldset>
+          <div className="flex flex-col gap-1">
+            <label htmlFor="include-one-time" className="inline-flex cursor-pointer items-center gap-2 text-[13px]">
+              <input
+                id="include-one-time"
+                type="checkbox"
+                className="size-4 accent-primary"
+                checked={includeOneTime}
+                disabled={oneTime === null}
+                onChange={(ev) => set({ includeOneTime: ev.target.checked })}
+              />
+              <span>
+                Include one-time costs <span className="num tabular-nums text-muted-foreground">({fmtUsd(oneTimeTotal, { cents: oneTimeTotal > 0 && oneTimeTotal < 100 })})</span>
+              </span>
+            </label>
+            <p className="text-[11px] text-muted-foreground" data-testid="one-time-convention">
+              {ONE_TIME_CONVENTION}
+              {includeOneTime ? <> Starting from <span className="num tabular-nums">{fmtUsd(P)}</span>.</> : null}
+              {includeOneTime && oneTime && oneTime.unknown.length > 0 ? <span className="text-warning"> Loads on unpriced positions are not included.</span> : null}
+            </p>
+          </div>
           {unknownCount > 0 ? <UnknownRatiosWarning count={unknownCount} /> : null}
           {e === null ? (
             <p role="status" className="rounded-md border border-dashed border-border px-3 py-4 text-center text-[13px] text-muted-foreground" data-testid="fee-rate-required">

@@ -14,6 +14,8 @@ export interface FeeAssumptions {
   /** Single return/horizon used for the growth chart; the sensitivity grid always spans the defaults. */
   r: number;
   T: number;
+  /** Subtract one-time costs (loads, transaction costs) from P before growth. Default off. */
+  includeOneTime?: boolean;
 }
 
 /** A schedule in the comparison editor. `linked` = derive from the user's portfolio until edited. */
